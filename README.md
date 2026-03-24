@@ -14,7 +14,7 @@ With andaconda, set up the virtual environment like this:
     conda activate NORMPROD
 
     # install requirements
-    conda install -y -c conda-forge numpy scipy loguru matplotlib datetime
+    conda install -y -c conda-forge numpy scipy loguru matplotlib
     pip install ipython
 
 
