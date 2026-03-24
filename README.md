@@ -6,7 +6,7 @@ Library for computation of normalized product (normprod), developed for automate
 Create anaconda environment:
 
     # create and activate new environment
-    conda create -y --name NORMPROD python=3.12
+    conda create -y --name NORMPROD -c conda-forge gdal
     conda activate NORMPROD
 
     # install requirements
