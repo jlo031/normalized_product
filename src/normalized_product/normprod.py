@@ -18,7 +18,7 @@ from scipy.ndimage import uniform_filter, generic_filter
 
 from osgeo import gdal
 
-from mormalized_product import normprod_utils
+from normalized_product import normprod_utils
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
