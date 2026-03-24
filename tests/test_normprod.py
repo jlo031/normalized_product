@@ -1,3 +1,9 @@
+# ---- This is <test_normprod.py> ----
+
+"""
+Test functions implemented in 'normalized_product.normprod'
+""" 
+
 import pathlib
 from loguru import logger
 
@@ -5,8 +11,7 @@ import numpy as np
 
 from osgeo import gdal
 
-import normprod_utils as normprod_utils
-import normprod as normprod
+from normalized_product import normprod
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -71,6 +76,7 @@ normprod_utils.check_and_trim_image_pair(
     date2 = None,
     overwrite = False
 )
+
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -137,12 +143,13 @@ std2 = [f for f in file_list if "georeg_2" in f.name and f"window{window}_local_
 
 normprod_smovar_output_path = IMG_PAIR_DIR / f"normprod_smovar_window{window}.tif"
 
-
 normprod.compute_normprod(dob1, dob2, std1, std2, normprod_smovar_output_path, window, save_intermediate_products=True)
 
 
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
 
-
+# ---- End of <test_normprod.py> ----
 
 
 
