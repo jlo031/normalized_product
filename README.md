@@ -1,6 +1,7 @@
 # normalized_product
 
-Library for computation of normalized product (normprod), developed for automated mapping of landfast sea ice around Antarctica in Sentinel-1 SAR imagery.
+Python library for computation of the ___normalized product___ (normprod) for automated mapping of landfast sea ice around Antarctica in Sentinel-1 SAR imagery.
+Original development was done in collaboration of ___UiT The Arctic University of Norway___ and the ___Universtity of Tasmania___.
 
 ### Preparation
 This library requires the Geospatial Data Abstraction Layer ([GDAL]) library.
