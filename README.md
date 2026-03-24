@@ -1,1 +1,39 @@
 # normalized_product
+
+Library for computation of normalized product (normprod), developed for automated mapping of landfast sea ice around Antarctica in Sentinel-1 SAR imagery.
+
+### Preparation
+Create anaconda environment:
+
+    # create and activate new environment
+    conda create -y --name NORMPROD python=3.12
+    conda activate NORMPROD
+
+    # install requirements
+    conda install -y - conda-forge numpy scipy loguru matplotlib datetime
+    pip install ipython
+
+
+
+### Installation
+You can install this library directly from github (1) or locally after cloning (2).  
+For both installation options, first set up the environment as described above.
+
+1. **Installation from github**
+
+       # install this package
+       pip install git+https://github.com/jlo031/normalized_product
+
+2. **Local installation**
+
+       # clone the repository
+       git clone git@github.com:jlo031/normalized_product
+
+   Change into the main directory of the cloned repository (it should contain the *setup.py* file) and install the library:
+
+       # installation
+       pip install .
+
+
+### Usage
+Test scripts and usage examples are provide in the folders test and examples.
