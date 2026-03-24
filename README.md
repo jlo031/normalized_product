@@ -3,7 +3,10 @@
 Library for computation of normalized product (normprod), developed for automated mapping of landfast sea ice around Antarctica in Sentinel-1 SAR imagery.
 
 ### Preparation
-Create anaconda environment:
+This library requires the Geospatial Data Abstraction Layer ([GDAL]) library.
+The simplest way to use GDAL with Python is to get the Anaconda Python distribution.
+It is recommended to run the code in a virtual environment.
+With andaconda, set up the virtual environment like this:
 
     # create and activate new environment
     conda create -y --name NORMPROD -c conda-forge gdal
@@ -17,7 +20,6 @@ Create anaconda environment:
 
 ### Installation
 You can install this library directly from github (1) or locally after cloning (2).  
-For both installation options, first set up the environment as described above.
 
 1. **Installation from github**
 
@@ -37,3 +39,10 @@ For both installation options, first set up the environment as described above.
 
 ### Usage
 Test scripts and usage examples are provide in the folders test and examples.
+
+
+
+
+
+
+[GDAL]: https://gdal.org/
