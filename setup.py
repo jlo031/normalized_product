@@ -8,7 +8,7 @@ def read(fname):
 setup(
     name = "normalized_product",
     version = "0.1.0",
-    author = "Johannes Lohse,
+    author = "Johannes Lohse",
     author_email = "johannes.lohse@utas.edu.au",
     description = ("Normprod computation on SAR data for Antarctic fast ice mapping."),
     long_description=open("README.md").read(),
