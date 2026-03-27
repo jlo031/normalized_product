@@ -11,7 +11,7 @@ import numpy as np
 
 from osgeo import gdal
 
-from normalized_product import normprod
+from normalized_product import normprod, normprod_utils
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
