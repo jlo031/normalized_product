@@ -6,6 +6,8 @@ Test functions implemented in 'normalized_product.normprod'
 
 import pathlib
 from loguru import logger
+import sys
+import shutil
 
 import numpy as np
 
@@ -22,8 +24,15 @@ DATA_DIR = pathlib.Path("/g/data/jk72/jl0818/DATA/fast_ice_tests")
 # Define your current test site
 site = "Thwaites"
 
+# Define loglevel ["DEBUG" or "INFO"]
+loglevel = "DEBUG"
+##loglevel = "INFO"
+
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
+
+logger.remove()
+logger.add(sys.stderr, level=loglevel)
 
 # Build path site-specific data dir
 SITE_DIR =  DATA_DIR / f"{site}"
@@ -38,12 +47,20 @@ logger.debug(f"GEOTIFF_DIR: {GEOTIFF_DIR}")
 if not GEOTIFF_DIR.is_dir():
     logger.error(f"Could not find GEOTIFF_DIR: {GEOTIFF_DIR}")
 
+# Find all S1 tif files in GEOTIFF_DIR
+img_list = [ f.name for f in GEOTIFF_DIR.iterdir() if f.name.startswith("S1") and f.name.endswith("tif") ]
 
-# Hard-code image pair (located in GEOTIFF_DIR
-image_pair = [
-    "S1A__EW___A_20240906T042826_HH_grd_mli_gamma0-rtc_geo_db_3031.tif",
-    "S1A__EW___A_20240918T042826_HH_grd_mli_gamma0-rtc_geo_db_3031.tif"
-]
+if not any(img_list):
+    logger.error("No 'S1*tif' files found in GEOTIFF_DIR")
+
+# select one image pair to test functions
+if len(img_list) == 1:
+    logger.warning("Only found one image in GEOTIFF_DIR, cannot test funtions working on image pairs")
+    pair = False
+else:
+    img_pair = img_list[0:2]
+    img_pair = [ GEOTIFF_DIR/f for f in img_pair ]
+    pair = True
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -52,9 +69,6 @@ print("\n# -------------------------------------------------- #")
 print("# ---------------------- TEST ---------------------  #")
 print("# ---- normprod_utils.check_and_trim_image_pair ---- #")
 print("# -------------------------------------------------- #\n")
-
-# Input img_pair requires full paths
-img_pair = [ GEOTIFF_DIR/img for img in image_pair ]
 
 # Get dates as strings
 # Testing the 'extract_date' function here
@@ -76,7 +90,6 @@ normprod_utils.check_and_trim_image_pair(
     date2 = None,
     overwrite = False
 )
-
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
