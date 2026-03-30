@@ -24,7 +24,7 @@ from normalized_product import normprod_utils
 # -------------------------------------------------------------------------- #
 
 def compute_DoB(image_path, output_path, window):
-    """Computes the difference from 2D boxcar smoothing (boxcar DoG-like) while preventing NaN spread."""
+    """Compute the difference from 2D boxcar smoothing (boxcar DoG-like) while preventing NaN spread."""
 
     logger.info(f"Starting DoB computation for w={window}...")
 
@@ -83,7 +83,7 @@ def compute_DoB(image_path, output_path, window):
 # -------------------------------------------------------------------------- #
 
 def compute_local_std(image_path, output_path, window):
-    """Computes the local standard deviation in a boxcar window."""
+    """Compute the local standard deviation in a boxcar window."""
 
     logger.info(f"Starting local std computation for w={window}...")
 
@@ -151,7 +151,7 @@ def compute_normprod(
     window,
     save_intermediate_products=False
 ):
-    """Computes Normalized Product (NormProd) using precomputed smoothed images, with NaN-safe summation.
+    """Compute Normalized Product (NormProd) using precomputed smoothed images, with NaN-safe summation.
 
     Parameters
     ----------
@@ -161,6 +161,7 @@ def compute_normprod(
     std2 : path to input local std image 2
     normprod_smovar_output_path : path to output file, normprod divided by smoothed variance
     window : window size for normalized product (e.g. 11, 21, 33)
+    save_intermediate_products : save intermediate products as tif files (default=False)
     """
 
     logger.info(f"Starting normprod_smovar computation for w={window}...")
@@ -351,7 +352,7 @@ def compute_normprod(
     out_ds.FlushCache()
     out_ds = None
 
-    logger.debug("Saved normprod_smovar.")
+    logger.info("Saved normprod_smovar: {normprod_smovar_output_path}.")
 
     # Clean up
     logger.debug("Freeing memory.")
@@ -359,6 +360,116 @@ def compute_normprod(
     normprod_smovar = None
 
 # --------------------- #
+
+    return True
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+def fully_process_single_image_pair(
+    img_pair_dir,
+    windows = [11,21,33],
+    save_intermediate_products = False,
+):
+    """
+    Full Normprod processing for single image pair that has already been checked and trimmed.
+        - DoB for each image
+        - local std for each image
+        - normprod_smovar for image pair
+
+    Parameters
+    ----------
+    img_pair_dir : path to image pair directory
+    windows : list of window sizes for normprod processing (default=[11,21,33])
+    save_intermediate_products : save intermediate products as tif files (default=False)
+
+    Returns
+    -------
+    """
+
+    logger.info(f"Starting full normprod processing chain for img_pair_dir...")
+
+    # Ensure that img_pair_dir is pathlib.Path object    
+    img_pair_dir = pathlib.Path(img_pair_dir)
+
+    if not img_pair_dir.exists():
+        logger.error(f"Could not find img_pair_dir: {img_pair_dir}")
+        return False
+        if not img_pair_dir.is_dir():
+            logger.error(f"img_pair_dir must be folder {img_pair_dir}")
+            return False
+
+# --------------------- #
+
+    # List all files in img_pair_dir
+    tif_file_list = [ f for f in img_pair_dir.glob("*.tif") ]
+
+    logger.debug(f"Found {len(tif_file_list)} tif files in img_pair_dir")
+    for ii,tif_file in enumerate(tif_file_list):
+        logger.debug(f"tif_file {ii+1}: {tif_file}")
+
+    # Find the original georeg files
+    # Make sure to exclude previously processed DoB or std images
+    exclude_list = ["DoB", "dob", "std"]
+
+    # List the georeg files for the IMG_PAIR_DIR
+    georeg_pair = [ f for f in tif_file_list if f.name.startswith("georeg") and not any(excluded in f.name for excluded in exclude_list) ]
+    georeg_pair.sort(key=lambda p: p.name)
+
+    logger.info("Found georeg*tif files in img_pair_dir:")
+    for i, georeg_img in enumerate(georeg_pair):
+        logger.info(f"georeg_{i+1}: {georeg_img}")
+
+    if not len(georeg_pair)==2:
+        logger.error("Expected exactly 2 files in georeg_pair, but found {len(georeg_pair}.")
+        return False
+
+# --------------------- #
+
+    logger.info(f"Computing DoB, local_std, and normprod_smovar for the following window sizes: {windows}")
+
+    georeg_path_1 = georeg_pair[0]
+    georeg_path_2 = georeg_pair[1]
+    georeg_basename_1 = georeg_path_1.stem
+    georeg_basename_2 = georeg_path_2.stem
+
+    logger.debug(f"georeg_path_1: {georeg_path_1}")
+    logger.debug(f"georeg_path_2: {georeg_path_2}")
+    logger.debug(f"georeg_basename_1: {georeg_basename_1}")
+    logger.debug(f"georeg_basename_2: {georeg_basename_2}")
+
+    for window in windows:
+        logger.info(f"Computing DoB and local std for window: {window}")
+
+        dob_path_1 = img_pair_dir / f"{georeg_basename_1}_DoB_window{window}.tif"
+        dob_path_2 = img_pair_dir / f"{georeg_basename_2}_DoB_window{window}.tif"
+        std_path_1 = img_pair_dir / f"{georeg_basename_1}_local_std_window{window}.tif"
+        std_path_2 = img_pair_dir / f"{georeg_basename_2}_local_std_window{window}.tif"
+        normprod_smovar_path = img_pair_dir / f"normprod_smovar_window{window}.tif"
+
+        logger.debug(f"dob_path_1: {dob_path_1}")
+        logger.debug(f"dob_path_2: {dob_path_2}")
+        logger.debug(f"std_path_1: {std_path_1}")
+        logger.debug(f"std_path_2: {std_path_2}")
+        logger.debug(f"normprod_smovar_path: {normprod_smovar_path}")
+
+        compute_DoB(georeg_path_1, dob_path_1, window)
+        compute_DoB(georeg_path_2, dob_path_2, window)
+
+        compute_local_std(georeg_path_1, std_path_1, window)
+        compute_local_std(georeg_path_1, std_path_2, window)
+
+        logger.info(f"Computing normprod_smovar for window: {window}")
+
+        compute_normprod(
+            dob_path_1,
+            dob_path_2,
+            std_path_1,
+            std_path_2,
+            normprod_smovar_path,
+            window,
+            save_intermediate_products=save_intermediate_products
+        )
 
     return True
 

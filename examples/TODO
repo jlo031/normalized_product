@@ -1,0 +1,13 @@
+check_and_trim_all_image_pairs_from_site_dir
+
+- loop over all possible image pair combinations in an input SITE_DIR
+- check and trim all image pairs for a min/max temporal baseline
+
+
+
+
+process_all_image_pairs_dir folders_in_list
+
+- make a list of all img_pair_dir folders for an input SITE_DIR
+- loop over the list and compute DoB, STD, NORMPROD for each image pair
+- distribute these jobs individually for parallel processing
