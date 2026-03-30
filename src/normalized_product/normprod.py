@@ -83,12 +83,16 @@ def compute_DoB(image_path, output_path, window):
 # -------------------------------------------------------------------------- #
 
 def compute_local_std(image_path, output_path, window):
-    """Computes the local standard deviation in a boxcar window of given width."""
+    """Computes the local standard deviation in a boxcar window."""
 
     logger.info(f"Starting local std computation for w={window}...")
 
     image_path  = pathlib.Path(image_path)
     output_path = pathlib.Path(output_path)
+
+    logger.debug(f"image_path:  {image_path}")
+    logger.debug(f"output_path: {output_path}")
+    logger.debug(f"window:      {window}")
 
     if output_path.is_file():
         logger.info(f"Skipping, {output_path} already exists.")
@@ -111,7 +115,7 @@ def compute_local_std(image_path, output_path, window):
 
     # Compute mean and mean of squares in local window
     local_mean = uniform_filter(band_filled, size=window, mode="nearest")
-    local_mean_sq = uniform_filter(band_filled**2, size=width, mode="nearest")
+    local_mean_sq = uniform_filter(band_filled**2, size=window, mode="nearest")
 
     # Standard deviation: sqrt(E[x^2] - (E[x])^2)
     local_std = np.sqrt(local_mean_sq - local_mean**2)
@@ -160,6 +164,11 @@ def compute_normprod(
     """
 
     logger.info(f"Starting normprod_smovar computation for w={window}...")
+
+    logger.debug(f"dob1: {dob1}")
+    logger.debug(f"dob2: {dob2}")
+    logger.debug(f"std1: {std1}")
+    logger.debug(f"std2: {std2}")
 
     dob1 = pathlib.Path(dob1)
     dob2 = pathlib.Path(dob2)
@@ -214,7 +223,7 @@ def compute_normprod(
 
     if save_intermediate_products:
         logger.debug("Saving stemean...")
-        intermediate_output_path = normprod_smovar_output_path.parent / "stdmean.tif"
+        intermediate_output_path = normprod_smovar_output_path.parent / "stdmean_window{window}.tif"
         driver = gdal.GetDriverByName("GTIFF")
         out_ds = driver.Create(intermediate_output_path, ds_dob1.RasterXSize, ds_dob1.RasterYSize, 1, gdal.GDT_Float32, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
         out_ds.SetGeoTransform(ds_dob1.GetGeoTransform())
@@ -240,7 +249,7 @@ def compute_normprod(
 
     if save_intermediate_products:
         logger.debug("Saving intermediate output: variance.")
-        intermediate_output_path = normprod_smovar_output_path.parent / "variance.tif"
+        intermediate_output_path = normprod_smovar_output_path.parent / "variance_window{window}.tif"
         driver = gdal.GetDriverByName("GTIFF")
         out_ds = driver.Create(intermediate_output_path, ds_dob1.RasterXSize, ds_dob1.RasterYSize, 1, gdal.GDT_Float32, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
         out_ds.SetGeoTransform(ds_dob1.GetGeoTransform())
@@ -259,7 +268,7 @@ def compute_normprod(
 
     if save_intermediate_products:
         logger.debug("Saving intermediate output: smoothed_variance.")
-        intermediate_output_path = normprod_smovar_output_path.parent / "smoothed_variance.tif"
+        intermediate_output_path = normprod_smovar_output_path.parent / "smoothed_variance_window{window}.tif"
         driver = gdal.GetDriverByName("GTIFF")
         out_ds = driver.Create(intermediate_output_path, ds_dob1.RasterXSize, ds_dob1.RasterYSize, 1, gdal.GDT_Float32, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
         out_ds.SetGeoTransform(ds_dob1.GetGeoTransform())
@@ -281,7 +290,7 @@ def compute_normprod(
 
     if save_intermediate_products:
         logger.debug("Saving intermediate output: normprod.")
-        intermediate_output_path = normprod_smovar_output_path.parent / "normprod.tif"
+        intermediate_output_path = normprod_smovar_output_path.parent / "normprod_window{window}.tif"
         driver = gdal.GetDriverByName("GTIFF")
         out_ds = driver.Create(intermediate_output_path, ds_dob1.RasterXSize, ds_dob1.RasterYSize, 1, gdal.GDT_Float32, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
         out_ds.SetGeoTransform(ds_dob1.GetGeoTransform())
@@ -305,7 +314,7 @@ def compute_normprod(
 
     if save_intermediate_products:
         logger.debug("Saving intermediate output: summed_normprod.")
-        intermediate_output_path = normprod_smovar_output_path.parent / "summed_normprod.tif"
+        intermediate_output_path = normprod_smovar_output_path.parent / "summed_normprod_window{window}.tif"
         driver = gdal.GetDriverByName("GTIFF")
         out_ds = driver.Create(intermediate_output_path, ds_dob1.RasterXSize, ds_dob1.RasterYSize, 1, gdal.GDT_Float32, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
         out_ds.SetGeoTransform(ds_dob1.GetGeoTransform())

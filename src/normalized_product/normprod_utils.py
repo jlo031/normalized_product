@@ -260,7 +260,7 @@ def check_and_trim_image_pair(
 
     if georeg1_path.is_file() and georeg2_path.is_file() and not overwrite:
         logger.info(f"Trimmed output files already exist. Set 'overwrite' option to reprocess.")
-        return False
+        return True
 
     elif georeg1_path.is_file() or georeg2_path.is_file() and overwrite:
         logger.info(f"Removing existing output files before reprocessing")

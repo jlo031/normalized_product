@@ -1,7 +1,7 @@
-# ---- This is <test_normprod.py> ----
+# ---- This is <process_single_img_pair.py> ----
 
 """
-Test functions implemented in 'normalized_product.normprod'
+Process a single image pair, compute normprod for 3 distinct window sizes.
 """ 
 
 import pathlib
@@ -18,21 +18,21 @@ from normalized_product import normprod, normprod_utils
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
+# Define loglevel ["DEBUG" or "INFO"]
+loglevel = "DEBUG"
+loglevel = "INFO"
+
+logger.remove()
+logger.add(sys.stderr, level=loglevel)
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
 # Define the main data dir
 DATA_DIR = pathlib.Path("/g/data/jk72/jl0818/DATA/fast_ice_tests")
 
 # Define your current test site
 site = "Thwaites"
-
-# Define loglevel ["DEBUG" or "INFO"]
-loglevel = "DEBUG"
-loglevel = "INFO"
-
-# -------------------------------------------------------------------------- #
-# -------------------------------------------------------------------------- #
-
-logger.remove()
-logger.add(sys.stderr, level=loglevel)
 
 # Build path site-specific data dir
 SITE_DIR =  DATA_DIR / f"{site}"
@@ -61,6 +61,87 @@ else:
     img_pair = img_list[0:2]
     img_pair = [ GEOTIFF_DIR/f for f in img_pair ]
     pair = True
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+# DEFINE ALL PROCESSING PARAMETERS
+
+# Image pair
+img_pair = [
+    GEOTIFF_DIR / img_list[0],
+    GEOTIFF_DIR / img_list[1]
+]
+
+# Get image datestrings (set manual/from image pair if this fails due to changed file name
+date1 = (normprod_utils.extract_date_from_filename(img_pair[0].stem)).strftime("%Y%m%dT%H%M%S")
+date2 = (normprod_utils.extract_date_from_filename(img_pair[1].stem)).strftime("%Y%m%dT%H%M%S")
+
+# Define output_dir
+IMG_PAIR_DIR = SITE_DIR / f"S1_image_pair_{date1}_{date2}"
+
+# temporal baseline
+min_temp_baseline = 11.9
+max_temp_baseline = 12.1
+
+# output epsg
+output_epsg = 3031
+
+# overwrite existing results
+overwrite = False
+
+# Define window sizes to process
+window_list = [11,21,33]
+
+
+
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+img_pair = 
+
+
+
+def process_single_pair(img_pair, img_pair_dir, min_temp_baseline)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
