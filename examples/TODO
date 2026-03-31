@@ -1,13 +1,15 @@
-check_and_trim_all_image_pairs_from_site_dir
+DONE check_and_trim_all_image_pairs_from_site_dir
 
-- loop over all possible image pair combinations in an input SITE_DIR
-- check and trim all image pairs for a min/max temporal baseline
+DONE - loop over all possible image pair combinations in an input SITE_DIR
+DONE - check and trim all image pairs for a min/max temporal baseline
+DONE - add optional 'local' normprod computation
 
 
 
+process all pairs from list
 
-process_all_image_pairs_dir folders_in_list
-
-- make a list of all img_pair_dir folders for an input SITE_DIR
-- loop over the list and compute DoB, STD, NORMPROD for each image pair
+DONE - make a list of all img_pair_dir folders for an input SITE_DIR
+DONE LOCALLY - loop over the list and compute DoB, STD, NORMPROD for each image pair
 - distribute these jobs individually for parallel processing
+
+To Do: Implement parallel/distributed normprod computation
