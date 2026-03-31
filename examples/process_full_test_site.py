@@ -1,18 +1,21 @@
 # ---- This is <process_full_test_site.py> ----
 
 """
-Fully process a single image pair:
-    - List all images in GEOTIFF_DIR
-    - Select first two images as img_pair
-    - Pre-process img_pair: normprod_utils.check_and_trim_image_pair
-    - Comnpute DoB, local std, normprod_smovar: normprod.fully_process_single_image_pair
+- Find all S1*tif files for given test site
+- Loop over all combinations of image pairs
+- If pair meets temporal baseline criteria:
+    - Check and trim pair
+    - Add IMG_PAIR_DIR to list of valid folders
+    - If 'compute_normprod=Tue':
+        - compute normprod locally
+        - Not recommended if processing many image pairs
 
-You need to define your main data directory ('DATA_DIR') and a test site ('site').
-The code expects a 'SITE_DIR' in your main data directore ('DATA_SIR/site').
-The originally processed geotiff files from GA must be stored in a 'GEOTIFF_DIR' called 'GA_geotiffs' within that 'SITE_DIR'.
-This script will select the first two tif files as an image pair and trigger the processing chain.
-All output files will be written to a newly created 'IMG_PAIR_DIR', which is defined based on image time stamps.
-NB: In case GA changes their naming convention (or if you work with different tif files), you must adjust the date extraction and naming of the IMG_PAIR_DIR.
+User inputs:
+main data directory ('DATA_DIR') and a test site ('site').
+temporal baseline
+output_epsg (almost always 3031 for Antartica)
+compute_normprod yes/no
+windows (usually 11,21,33)
 """ 
 
 import pathlib
@@ -48,7 +51,7 @@ logger.add(sys.stderr, level=loglevel)
 DATA_DIR = pathlib.Path("/g/data/jk72/jl0818/DATA/fast_ice_tests")
 
 # Set your current test site
-site = "Thwaites"
+site = "Thwaites_bak"
 
 # Build path site-specific data dir
 SITE_DIR =  DATA_DIR / f"{site}"
