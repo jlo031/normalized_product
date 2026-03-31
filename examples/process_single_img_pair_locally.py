@@ -1,11 +1,18 @@
-# ---- This is <process_single_img_pair.py> ----
+# ---- This is <process_single_img_pair_locally.py> ----
 
 """
 Fully process a single image pair:
     - List all images in GEOTIFF_DIR
     - Select first two images as img_pair
     - Pre-process img_pair: normprod_utils.check_and_trim_image_pair
-    - Comnpute DoB, local std, normprod_smovar: normprod.fully_process_single_image_pair(
+    - Comnpute DoB, local std, normprod_smovar: normprod.fully_process_single_image_pair
+
+You need to define your main data directory ('DATA_DIR') and a test site ('site').
+The code expects a 'SITE_DIR' in your main data directore ('DATA_SIR/site').
+The originally processed geotiff files from GA must be stored in a 'GEOTIFF_DIR' called 'GA_geotiffs' within that 'SITE_DIR'.
+This script will select the first two tif files as an image pair and trigger the processing chain.
+All output files will be written to a newly created 'IMG_PAIR_DIR', which is defined based on image time stamps.
+NB: In case GA changes their naming convention (or if you work with different tif files), you must adjust the date extraction and naming of the IMG_PAIR_DIR.
 """ 
 
 import pathlib
@@ -38,6 +45,9 @@ DATA_DIR = pathlib.Path("/g/data/jk72/jl0818/DATA/fast_ice_tests")
 # Define your current test site
 site = "Thwaites"
 
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
 # Build path site-specific data dir
 SITE_DIR =  DATA_DIR / f"{site}"
 
@@ -68,6 +78,10 @@ else:
     img_pair = img_list[0:2]
     img_pair = [ GEOTIFF_DIR/f for f in img_pair ]
     pair = True
+
+logger.info("Selected the folling image pair:")
+logger.info(f"{img_pair[0]}")
+logger.info(f"{img_pair[1]}")
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -117,7 +131,7 @@ normprod.fully_process_single_image_pair(
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# ---- End of <process_single_img_pair.py> ----
+# ---- End of <process_single_img_pair_locally.py> ----
 
 
 
