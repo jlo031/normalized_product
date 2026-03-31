@@ -416,12 +416,12 @@ def fully_process_single_image_pair(
     georeg_pair = [ f for f in tif_file_list if f.name.startswith("georeg") and not any(excluded in f.name for excluded in exclude_list) ]
     georeg_pair.sort(key=lambda p: p.name)
 
-    logger.info("Found georeg*tif files in img_pair_dir:")
+    logger.info(f"Found {len(georeg_pair)} georeg*tif files in img_pair_dir:")
     for i, georeg_img in enumerate(georeg_pair):
         logger.info(f"georeg_{i+1}: {georeg_img}")
 
     if not len(georeg_pair)==2:
-        logger.error("Expected exactly 2 files in georeg_pair, but found {len(georeg_pair}.")
+        logger.error(f"Expected exactly 2 files in georeg_pair, but found {len(georeg_pair)}.")
         return False
 
 # --------------------- #
