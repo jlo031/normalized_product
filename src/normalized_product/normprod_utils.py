@@ -237,7 +237,8 @@ def check_and_trim_image_pair(
         return False	
 
     # Calculate temporal baseline in days
-    temp_baseline_days = np.abs((date1 - date2).days)
+    temp_baseline = date2 - date1
+    temp_baseline_days = np.abs(temp_baseline.total_seconds()) / 86400
 
     logger.debug(f"temp_baseline_days: {temp_baseline_days}")
 
