@@ -51,7 +51,7 @@ logger.add(sys.stderr, level=loglevel)
 DATA_DIR = pathlib.Path("/g/data/jk72/jl0818/DATA/fast_ice_tests")
 
 # Set your current test site
-site = "Thwaites_bak"
+site = "Thwaites"
 
 # Build path site-specific data dir
 SITE_DIR =  DATA_DIR / f"{site}"
@@ -103,6 +103,7 @@ if not GEOTIFF_DIR.is_dir():
 # GEOTIFF_DIR should contain the GA processed geotiff files with backscatter intensity
 # List all 'S1*tif' files for current test site
 img_list = [ f.name for f in GEOTIFF_DIR.iterdir() if f.name.startswith("S1") and f.name.endswith("tif") ]
+img_list.sort()
 
 logger.info(f"Found {len(img_list)} 'S1*tif' images in GEOTIFF_DIR")
 
@@ -145,7 +146,6 @@ for count,img_pair in enumerate(combinations(img_list, 2),1):
 
     # Define IMG_PAIR_DIR
     IMG_PAIR_DIR = SITE_DIR / f"S1_image_pair_{date1}_{date2}"
-    ##IMG_PAIR_DIR.mkdir(parents=True, exist_ok=True)
 
     logger.debug(f"date1: {date1}")
     logger.debug(f"date2: {date2}")
@@ -191,7 +191,7 @@ for count,img_pair in enumerate(combinations(img_list, 2),1):
 # Write list with valid image pair folders to file for later processing
 logger.info("Writing list of valid_image_pair_folders to disk for later processing")
 
-valid_pairs_output_list = SITE_DIR / "valid_img_pair_list.txt"
+valid_pairs_output_list = SITE_DIR / f"{site}__valid_img_pair_list.txt"
 with open(valid_pairs_output_list, 'w') as f:
     f.write('\n'.join(valid_image_pair_folders) + '\n')
 logger.info(f"Successfully wrote {len(valid_image_pair_folders)} entries to {valid_pairs_output_list}")
