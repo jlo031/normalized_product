@@ -1,0 +1,84 @@
+import sys
+import ast
+import argparse
+from pathlib import Path
+
+from loguru import logger
+
+
+
+def str_to_bool(value: str) -> bool:
+    """Helper to handle various boolean string representations."""
+    if isinstance(value, bool):
+        return value
+    if value.lower() in ("yes", "true", "t", "y", "1"):
+        return True
+    elif value.lower() in ("no", "false", "f", "n", "0"):
+        return False
+    else:
+        raise argparse.ArgumentTypeError("Boolean value expected (True/False).")
+
+
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Process a single image pair folder.")
+
+    # Positional Arguments
+    parser.add_argument("IMG_PAIR_DIR", type=Path, help="Path to the image pair directory")
+    parser.add_argument("windows", type=str, help="Python-style list string of window sizes")
+    parser.add_argument("save_intermediate_products", type=str_to_bool, help="True/False")
+    parser.add_argument("loglevel", type=str, help="Set loglevel")
+
+    args = parser.parse_args()
+
+
+    # --- Logging Setup ---
+
+    logger.remove()
+    logger.add(sys.stdout, level=args.loglevel.upper())
+
+
+    # --- Argument Parsing & Validation ---
+    
+    # Check if directory exists before doing heavy lifting
+    if not args.IMG_PAIR_DIR.is_dir():
+        logger.error(f"Directory not found: {args.IMG_PAIR_DIR}")
+        sys.exit(1)
+
+    # Parse the window list string
+    try:
+        window_list = ast.literal_eval(args.windows)
+        if not isinstance(window_list, list):
+            raise ValueError("Input must be a list.")
+        # Ensure elements are integers
+        window_list = [int(x) for x in window_list]
+    except (ValueError, SyntaxError) as e:
+        logger.error(f"Failed to parse windows list '{args.windows}': {e}")
+        sys.exit(1)
+
+
+    # --- Execution ---
+
+    logger.info(f"IMG_PAIR_DIR: {args.IMG_PAIR_DIR.resolve()}")
+    logger.info(f"window_list:  {window_list}")
+    logger.info(f"Save intermediates: {args.save_intermediate_products}")
+
+    try:
+        # Import only when needed to keep the CLI snappy
+        from normalized_product import normprod
+        
+        normprod.fully_process_single_image_pair(
+            args.IMG_PAIR_DIR,
+            windows=window_list,
+            save_intermediate_products=args.save_intermediate_products,
+        )
+
+        logger.success("Processing complete.")
+        
+    except Exception as e:
+        logger.exception("A runtime error occurred during processing.")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
