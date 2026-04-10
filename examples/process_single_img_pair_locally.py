@@ -10,6 +10,7 @@ Fully process a single image pair:
 You need to define your main data directory ('DATA_DIR') and a test site ('site').
 The code expects a 'SITE_DIR' in your main data directore ('DATA_SIR/site').
 The originally processed geotiff files from GA must be stored in a 'GEOTIFF_DIR' called 'GA_geotiffs' within that 'SITE_DIR'.
+This is the same file structure that is expected for the batch processing code.
 This script will select the first two tif files as an image pair and trigger the processing chain.
 All output files will be written to a newly created 'IMG_PAIR_DIR', which is defined based on image time stamps.
 NB: In case GA changes their naming convention (or if you work with different tif files), you must adjust the date extraction and naming of the IMG_PAIR_DIR.

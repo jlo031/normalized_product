@@ -1,3 +1,10 @@
+# ---- This is <run_single_pair.py> ----
+
+"""
+Process normnprod_smovar for input IMG_PAIR_DIR.
+Desgined to be called as pbs job in disctirbuted processing for a full test site.
+"""
+
 import sys
 import ast
 import argparse
@@ -5,7 +12,8 @@ from pathlib import Path
 
 from loguru import logger
 
-
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
 
 def str_to_bool(value: str) -> bool:
     """Helper to handle various boolean string representations."""
@@ -18,10 +26,10 @@ def str_to_bool(value: str) -> bool:
     else:
         raise argparse.ArgumentTypeError("Boolean value expected (True/False).")
 
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
 
-
-
-def main():
+def run_single_pair():
     parser = argparse.ArgumentParser(description="Process a single image pair folder.")
 
     # Positional Arguments
@@ -32,13 +40,13 @@ def main():
 
     args = parser.parse_args()
 
-
+    # ---------------------
     # --- Logging Setup ---
 
     logger.remove()
     logger.add(sys.stdout, level=args.loglevel.upper())
 
-
+    # -------------------------------------
     # --- Argument Parsing & Validation ---
     
     # Check if directory exists before doing heavy lifting
@@ -57,7 +65,7 @@ def main():
         logger.error(f"Failed to parse windows list '{args.windows}': {e}")
         sys.exit(1)
 
-
+    # -----------------
     # --- Execution ---
 
     logger.info(f"IMG_PAIR_DIR: {args.IMG_PAIR_DIR.resolve()}")
@@ -77,8 +85,18 @@ def main():
         logger.success("Processing complete.")
         
     except Exception as e:
-        logger.exception("A runtime error occurred during processing.")
+        logger.error("A runtime error occurred during processing.")
         sys.exit(1)
 
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
 if __name__ == "__main__":
-    main()
+    run_single_pair()
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+# ---- End of <run_single_pair.py> ----
+
+

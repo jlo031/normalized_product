@@ -1,0 +1,142 @@
+2026-04-10 13:43:48.992 | INFO     | __main__:run_single_pair:71 - IMG_PAIR_DIR: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826
+2026-04-10 13:43:48.992 | INFO     | __main__:run_single_pair:72 - window_list:  [11, 21, 33]
+2026-04-10 13:43:48.992 | INFO     | __main__:run_single_pair:73 - Save intermediates: False
+2026-04-10 13:43:55.590 | INFO     | normalized_product.normprod:fully_process_single_image_pair:390 - Starting full normprod processing chain for img_pair_dir...
+2026-04-10 13:43:55.607 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:407 - Found 17 tif files in img_pair_dir
+2026-04-10 13:43:55.607 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.607 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window21.tif
+2026-04-10 13:43:55.607 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 3: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 4: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 5: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 6: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 7: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 8: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window11.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 9: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 10: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 11: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 12: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 13: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 14: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 15: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 16: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.608 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:409 - tif_file 17: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window33.tif
+2026-04-10 13:43:55.609 | INFO     | normalized_product.normprod:fully_process_single_image_pair:419 - Found 2 georeg*tif files in img_pair_dir:
+2026-04-10 13:43:55.609 | INFO     | normalized_product.normprod:fully_process_single_image_pair:421 - georeg_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.609 | INFO     | normalized_product.normprod:fully_process_single_image_pair:421 - georeg_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031.tif
+2026-04-10 13:43:55.609 | INFO     | normalized_product.normprod:fully_process_single_image_pair:429 - Computing DoB, local_std, and normprod_smovar for the following window sizes: [11, 21, 33]
+2026-04-10 13:43:55.609 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:436 - georeg_path_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.609 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:437 - georeg_path_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031.tif
+2026-04-10 13:43:55.609 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:438 - georeg_basename_1: georeg_1_20240906_EPSG3031
+2026-04-10 13:43:55.610 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:439 - georeg_basename_2: georeg_2_20240918_EPSG3031
+2026-04-10 13:43:55.610 | INFO     | normalized_product.normprod:fully_process_single_image_pair:442 - Computing DoB and local std for window: 11
+2026-04-10 13:43:55.610 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:450 - dob_path_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.610 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:451 - dob_path_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.610 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:452 - std_path_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.610 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:453 - std_path_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.610 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:454 - normprod_smovar_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window11.tif
+2026-04-10 13:43:55.610 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=11...
+2026-04-10 13:43:55.610 | DEBUG    | normalized_product.normprod:compute_DoB:34 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.611 | DEBUG    | normalized_product.normprod:compute_DoB:35 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.611 | DEBUG    | normalized_product.normprod:compute_DoB:36 - window:      11
+2026-04-10 13:43:55.612 | INFO     | normalized_product.normprod:compute_DoB:39 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window11.tif already exists.
+2026-04-10 13:43:55.612 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=11...
+2026-04-10 13:43:55.612 | DEBUG    | normalized_product.normprod:compute_DoB:34 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031.tif
+2026-04-10 13:43:55.612 | DEBUG    | normalized_product.normprod:compute_DoB:35 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.612 | DEBUG    | normalized_product.normprod:compute_DoB:36 - window:      11
+2026-04-10 13:43:55.613 | INFO     | normalized_product.normprod:compute_DoB:39 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window11.tif already exists.
+2026-04-10 13:43:55.613 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=11...
+2026-04-10 13:43:55.613 | DEBUG    | normalized_product.normprod:compute_local_std:93 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.613 | DEBUG    | normalized_product.normprod:compute_local_std:94 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.613 | DEBUG    | normalized_product.normprod:compute_local_std:95 - window:      11
+2026-04-10 13:43:55.614 | INFO     | normalized_product.normprod:compute_local_std:98 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window11.tif already exists.
+2026-04-10 13:43:55.614 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=11...
+2026-04-10 13:43:55.614 | DEBUG    | normalized_product.normprod:compute_local_std:93 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.614 | DEBUG    | normalized_product.normprod:compute_local_std:94 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.614 | DEBUG    | normalized_product.normprod:compute_local_std:95 - window:      11
+2026-04-10 13:43:55.615 | INFO     | normalized_product.normprod:compute_local_std:98 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window11.tif already exists.
+2026-04-10 13:43:55.615 | INFO     | normalized_product.normprod:fully_process_single_image_pair:462 - Computing normprod_smovar for window: 11
+2026-04-10 13:43:55.615 | INFO     | normalized_product.normprod:compute_normprod:167 - Starting normprod_smovar computation for w=11...
+2026-04-10 13:43:55.615 | DEBUG    | normalized_product.normprod:compute_normprod:169 - dob1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.615 | DEBUG    | normalized_product.normprod:compute_normprod:170 - dob2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window11.tif
+2026-04-10 13:43:55.615 | DEBUG    | normalized_product.normprod:compute_normprod:171 - std1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.615 | DEBUG    | normalized_product.normprod:compute_normprod:172 - std2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window11.tif
+2026-04-10 13:43:55.616 | INFO     | normalized_product.normprod:compute_normprod:181 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window11.tif already exists.
+2026-04-10 13:43:55.617 | INFO     | normalized_product.normprod:fully_process_single_image_pair:442 - Computing DoB and local std for window: 21
+2026-04-10 13:43:55.617 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:450 - dob_path_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.617 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:451 - dob_path_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.617 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:452 - std_path_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.618 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:453 - std_path_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.618 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:454 - normprod_smovar_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window21.tif
+2026-04-10 13:43:55.618 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=21...
+2026-04-10 13:43:55.618 | DEBUG    | normalized_product.normprod:compute_DoB:34 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.618 | DEBUG    | normalized_product.normprod:compute_DoB:35 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.618 | DEBUG    | normalized_product.normprod:compute_DoB:36 - window:      21
+2026-04-10 13:43:55.618 | INFO     | normalized_product.normprod:compute_DoB:39 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window21.tif already exists.
+2026-04-10 13:43:55.618 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=21...
+2026-04-10 13:43:55.619 | DEBUG    | normalized_product.normprod:compute_DoB:34 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031.tif
+2026-04-10 13:43:55.619 | DEBUG    | normalized_product.normprod:compute_DoB:35 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.619 | DEBUG    | normalized_product.normprod:compute_DoB:36 - window:      21
+2026-04-10 13:43:55.619 | INFO     | normalized_product.normprod:compute_DoB:39 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window21.tif already exists.
+2026-04-10 13:43:55.619 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=21...
+2026-04-10 13:43:55.619 | DEBUG    | normalized_product.normprod:compute_local_std:93 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.619 | DEBUG    | normalized_product.normprod:compute_local_std:94 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.619 | DEBUG    | normalized_product.normprod:compute_local_std:95 - window:      21
+2026-04-10 13:43:55.620 | INFO     | normalized_product.normprod:compute_local_std:98 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window21.tif already exists.
+2026-04-10 13:43:55.620 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=21...
+2026-04-10 13:43:55.620 | DEBUG    | normalized_product.normprod:compute_local_std:93 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.620 | DEBUG    | normalized_product.normprod:compute_local_std:94 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.620 | DEBUG    | normalized_product.normprod:compute_local_std:95 - window:      21
+2026-04-10 13:43:55.621 | INFO     | normalized_product.normprod:compute_local_std:98 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window21.tif already exists.
+2026-04-10 13:43:55.621 | INFO     | normalized_product.normprod:fully_process_single_image_pair:462 - Computing normprod_smovar for window: 21
+2026-04-10 13:43:55.621 | INFO     | normalized_product.normprod:compute_normprod:167 - Starting normprod_smovar computation for w=21...
+2026-04-10 13:43:55.621 | DEBUG    | normalized_product.normprod:compute_normprod:169 - dob1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.621 | DEBUG    | normalized_product.normprod:compute_normprod:170 - dob2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window21.tif
+2026-04-10 13:43:55.621 | DEBUG    | normalized_product.normprod:compute_normprod:171 - std1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.621 | DEBUG    | normalized_product.normprod:compute_normprod:172 - std2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window21.tif
+2026-04-10 13:43:55.622 | INFO     | normalized_product.normprod:compute_normprod:181 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window21.tif already exists.
+2026-04-10 13:43:55.622 | INFO     | normalized_product.normprod:fully_process_single_image_pair:442 - Computing DoB and local std for window: 33
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:450 - dob_path_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:451 - dob_path_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:452 - std_path_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:453 - std_path_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:fully_process_single_image_pair:454 - normprod_smovar_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window33.tif
+2026-04-10 13:43:55.622 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=33...
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:compute_DoB:34 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:compute_DoB:35 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.622 | DEBUG    | normalized_product.normprod:compute_DoB:36 - window:      33
+2026-04-10 13:43:55.623 | INFO     | normalized_product.normprod:compute_DoB:39 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window33.tif already exists.
+2026-04-10 13:43:55.623 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=33...
+2026-04-10 13:43:55.623 | DEBUG    | normalized_product.normprod:compute_DoB:34 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031.tif
+2026-04-10 13:43:55.623 | DEBUG    | normalized_product.normprod:compute_DoB:35 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.623 | DEBUG    | normalized_product.normprod:compute_DoB:36 - window:      33
+2026-04-10 13:43:55.624 | INFO     | normalized_product.normprod:compute_DoB:39 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window33.tif already exists.
+2026-04-10 13:43:55.624 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=33...
+2026-04-10 13:43:55.624 | DEBUG    | normalized_product.normprod:compute_local_std:93 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.624 | DEBUG    | normalized_product.normprod:compute_local_std:94 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.624 | DEBUG    | normalized_product.normprod:compute_local_std:95 - window:      33
+2026-04-10 13:43:55.624 | INFO     | normalized_product.normprod:compute_local_std:98 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window33.tif already exists.
+2026-04-10 13:43:55.625 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=33...
+2026-04-10 13:43:55.625 | DEBUG    | normalized_product.normprod:compute_local_std:93 - image_path:  /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031.tif
+2026-04-10 13:43:55.625 | DEBUG    | normalized_product.normprod:compute_local_std:94 - output_path: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.625 | DEBUG    | normalized_product.normprod:compute_local_std:95 - window:      33
+2026-04-10 13:43:55.625 | INFO     | normalized_product.normprod:compute_local_std:98 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window33.tif already exists.
+2026-04-10 13:43:55.625 | INFO     | normalized_product.normprod:fully_process_single_image_pair:462 - Computing normprod_smovar for window: 33
+2026-04-10 13:43:55.625 | INFO     | normalized_product.normprod:compute_normprod:167 - Starting normprod_smovar computation for w=33...
+2026-04-10 13:43:55.625 | DEBUG    | normalized_product.normprod:compute_normprod:169 - dob1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.625 | DEBUG    | normalized_product.normprod:compute_normprod:170 - dob2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_DoB_window33.tif
+2026-04-10 13:43:55.626 | DEBUG    | normalized_product.normprod:compute_normprod:171 - std1: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_1_20240906_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.626 | DEBUG    | normalized_product.normprod:compute_normprod:172 - std2: /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/georeg_2_20240918_EPSG3031_local_std_window33.tif
+2026-04-10 13:43:55.626 | INFO     | normalized_product.normprod:compute_normprod:181 - Skipping, /g/data/jk72/jl0818/DATA/fast_ice_tests/Thwaites/S1_image_pair_20240906T042826_20240918T042826/normprod_smovar_window33.tif already exists.
+2026-04-10 13:43:55.626 | SUCCESS  | __main__:run_single_pair:85 - Processing complete.
+
+======================================================================================
+                  Resource Usage on 2026-04-10 13:44:00:
+   Job Id:             165234459.gadi-pbs
+   Project:            jk72
+   Exit Status:        0
+   Service Units:      0.04
+   NCPUs Requested:    2                   CPU Time Used: 00:00:05        
+   Memory Requested:   24.0GB                Memory Used: 299.47MB        
+   Walltime Requested: 03:00:00            Walltime Used: 00:00:13        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================

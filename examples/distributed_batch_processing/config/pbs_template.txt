@@ -10,8 +10,8 @@
 #PBS -o {log_dir}/{jobname}.o
 #PBS -e {log_dir}/{jobname}.e
 
-source /g/data/jk72/jl0818/miniconda3_jo/etc/profile.d/conda.sh
-conda activate NORMPROD
+source {conda_sh}
+conda activate {conda_env}
 
 # added -u option for unbuffered processing, giving continuous logfile updates
 python3 -u {run_script_path} "{img_pair_dir}" "{windows}" "{save_intermediate_products}" "{loglevel}"

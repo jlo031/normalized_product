@@ -1,0 +1,77 @@
+# ---- This is <config.yaml> ----
+#
+# Your main data directory (data_dir) should contain individual folders for
+# each test site.
+
+# The 'SITE_DIR' for your job is built based on your 'data_dir' and 'site'
+# inputs.
+# 
+# Within your 'SITE_DIR', there must be a 'GA_geotiff' folder with the original
+# geotiff intensity images processed by GA.
+#
+# Individual folders for each image pair will be placed into 'SITE_DIR'
+#
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+# Define main data directory
+data_dir: "/g/data/jk72/jl0818/DATA/fast_ice_tests"
+
+# Define study site
+site: "Thwaites"
+
+# Define min and max values for allowed temporal baseline
+min_temp_baseline: 11.9
+max_temp_baseline: 12.1
+
+# Define EPSG code for outputs (standard for Antarctica: 3031)
+output_epsg: 3031
+
+# Window sizes
+window_list:
+  - 11
+  - 21
+  - 33
+
+# Do you want to overwrite already existing products? (true/false)
+overwrite: false
+
+# Compute normprod locally (true/false)
+# Not recommended when processing multiple image pairs!
+compute_normprod_locally: false
+
+# Save intermediate products during normprod_smovar computation? (true/false)
+save_intermediate_products: false
+
+# Set your loglevel (DEBUG/INFO)
+loglevel: DEBUG
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+# PARAMETERS SPECIFIC TO DISTRIBUTED BATCH PROCESSING
+
+# Set path to conda.sh file
+# Required to activate anaconda environment during distributed normprod processing
+conda_sh: "/g/data/jk72/jl0818/miniconda3_jo/etc/profile.d/conda.sh"
+
+# Set name of conda environment for normprod processing
+conda_env: "NORMPROD"
+
+# Set path to pbs_template file
+# Recommended to keep in your local 'config' folder
+pbs_template: "../config/pbs_template.txt"
+
+# Set path to run_script for distributed batch processing
+# Recommended to keep in your local 'utils' folder
+pbs_run_script: "./utils/run_single_pair_as_separate_job.py"
+
+# Set path to log_dir for distributed batch processing
+# Place this wherever you want to keep track of your processing
+pbs_log_dir: "./batch_processing_logs/logs"
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+# ---- End of <config.yaml> ----
+
