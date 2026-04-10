@@ -40,11 +40,78 @@ You can install this library directly from github (1) or locally after cloning (
 
 ### Usage
 Test scripts and usage examples are provide in the folders test and examples.
+Unless you are developing the code further, there is no need to touch the test folder.
 
+The examle folder contains a "quick and dirty" coded example that runs through the entire processing chain for one single image pair.
+It provides a subfolder for disributed batch processing which is specifically designed to run on NCI/GADI.
 
+#### Batch processing
+For full batch processing of a complete test site, you need to adjust __only__ the ___config.yaml___ file in the ___config___ folder.
+Your data __must__ be stored according to the folder structure provided below.
+The entire batch processing consists of 2 steps:
+(1) preprocess_full_test_site.py:
+    Checks and trims image pairs based on the settings provided in ___config.yaml___.
+    Creates and image pair folder for each valid image pair and writes a list
+(2) batch_process_normprod_smovar.py
 
+Both scripts read the settings from the ___config.yaml___ file and should not require __any__ changes by the user.
 
+#### Folder Structure
+Below is the folder structure for the project:
 
+```
+DATA_DIR/
+│
+├── TestSite1/
+│ ├── GA_geotiffs/
+│ │ ├── original_GA_intensity_file1.tif    
+│ │ ├── original_GA_intensity_file2.tif
+│ │ └── ...
+│ ├── IMG_PAIR_1/
+│ │ ├── georeg_1_*tif
+│ │ ├── georeg_1_*tif
+│ │ ├── normprod_smovar_window_*tif
+│ ├── IMG_PAIR_2/
+│ │ ├── georeg_1_*tif
+│ │ ├── georeg_1_*tif
+│ │ ├── normprod_smovar_window_*tif
+│ └── ...
+│
+├── TestSite2/
+│ ├── GA_geotiffs/
+│ │ ├── original_GA_intensity_file1.tif    
+│ │ ├── original_GA_intensity_file2.tif
+│ │ └── ...
+│ ├── IMG_PAIR_1/
+│ │ ├── georeg_1_*tif
+│ │ ├── georeg_1_*tif
+│ │ ├── normprod_smovar_window_*tif
+│ ├── IMG_PAIR_2/
+│ │ ├── georeg_1_*tif
+│ │ ├── georeg_1_*tif
+│ │ ├── normprod_smovar_window_*tif
+│ └── ...
+│
+└── TestSiteN/
+├── GA_geotiffs/
+│ │ ├── original_GA_intensity_file1.tif    
+│ │ ├── original_GA_intensity_file2.tif
+│ └── ...
+├── IMG_PAIR_1/
+│ │ ├── georeg_1_*tif
+│ │ ├── georeg_1_*tif
+│ │ ├── normprod_smovar_window_*tif
+├── IMG_PAIR_2/
+│ │ ├── georeg_1_*tif
+│ │ ├── georeg_1_*tif
+│ │ ├── normprod_smovar_window_*tif
+└── ...
+```
+
+- `DATA_DIR/`: The main directory containing all test site subfolders.
+- `TestSite1/`, `TestSite2/`, ..., `TestSiteN/`: Subfolders for individual test sites.
+- `GA_geotiffs/`: A folder within each test site containing the original GeoTIFF files.
+- `IMG_PAIR_1/`, `IMG_PAIR_2/`, ...: Folders for individual image pairs within each test site, containing processed or related files.
 
 [GDAL]: https://gdal.org/
 [AAPP]: https://aappartnership.org.au/
