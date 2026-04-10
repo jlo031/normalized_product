@@ -2,8 +2,9 @@
 
 Python library for computation of the **normalized product** (normprod) for automated mapping of landfast sea ice around Antarctica in Sentinel-1 SAR imagery.
 
-Original development was conducted in collaboration with **UiT The Arctic University of Norway**, the **University of Tasmania**, and **Geoscience Australia** as part of the **Australian Antarctic Program Partnership ([AAPP])**.
+Original development was conducted in collaboration with the ***University of Tasmania***, ***UiT The Arctic University of Norway***, and ***Geoscience Australia***, as part of the ***Australian Antarctic Program Partnership ([AAPP])***.
 
+---
 ---
 
 ## 🛠 Preparation
@@ -20,6 +21,7 @@ It is recommended the code in a dedicated virtual environment:
     # Install additional interactive tools
     pip install ipython
 
+---
 ---
 
 ## 📦 Installation
@@ -41,6 +43,8 @@ You can install this library directly from GitHub or locally after cloning the r
        # installation
        pip install .
 
+---
+---
 
 ## 🚀 Usage
 
@@ -51,8 +55,8 @@ Test scripts and usage examples are provided in the `test/` and `examples/` fold
 
 Unless you are developing the code further, there is no need to run or modify the contents of the `test/` folder.
 
-
-
+---
+---
 
 ## 📊 Batch Processing
 
