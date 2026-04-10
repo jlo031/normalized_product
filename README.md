@@ -5,11 +5,10 @@ Python library for computation of the **normalized product** (normprod) for auto
 Original development was conducted in collaboration with the ***University of Tasmania***, ***UiT The Arctic University of Norway***, and ***Geoscience Australia***, as part of the ***Australian Antarctic Program Partnership ([AAPP])***.
 
 ---
----
 
 ## 🛠 Preparation
 
-This library requires the **Geospatial Data Abstraction Layer ([GDAL])** library. The simplest way to manage GDAL and Python dependencies is via the [Anaconda] distribution.
+This library requires the **Geospatial Data Abstraction Layer ([GDAL])** library. The simplest way to manage GDAL and Python dependencies is via the **[Anaconda]** distribution.
 
 ### Environment Setup
 It is recommended the code in a dedicated virtual environment:
@@ -21,7 +20,6 @@ It is recommended the code in a dedicated virtual environment:
     # Install additional interactive tools
     pip install ipython
 
----
 ---
 
 ## 📦 Installation
@@ -44,27 +42,27 @@ You can install this library directly from GitHub or locally after cloning the r
        pip install .
 
 ---
----
 
 ## 🚀 Usage
 
 Test scripts and usage examples are provided in the `test/` and `examples/` folders.
 
-* **Examples:** Contains a "quick and dirty" script that runs through the entire processing chain for a single image pair.
-* **HPC Support:** Includes a subfolder for distributed batch processing specifically designed for the **NCI/GADI** supercomputing environment.
+* **examples:** Contains a "quick and dirty" script that runs through the entire processing chain for a single image pair.
+* **examples/hpc_support:** Examples subfolder with setup for distributed batch processing, specifically designed for the **NCI/GADI** supercomputing environment.
 
 Unless you are developing the code further, there is no need to run or modify the contents of the `test/` folder.
 
 ---
----
 
 ## 📊 Batch Processing
+
+An example setup for HPC batch processing is provided in `examples/hpc_support/`.
 
 For full batch processing of a complete test site, users only need to adjust the `config.yaml` file located in the `config/` folder.
 
 The entire batch processing chain consists of two steps:
-1.  `preprocess_full_test_site.py`: Handles initial data preparation and georegistration.
-2.  `batch_process_normprod_smovar.py`: Computes the normalized product.
+1.  `preprocess_full_test_site.py`: Handles initial data preparation, georegistration, checking of image pairs, and cropping to overlapping regions.
+2.  `batch_process_normprod_smovar.py`: Computes the normalized product for each valid image pair.
 
 Both scripts read settings from `config.yaml` and should not require manual code changes. All outputs are written to specific image-pair folders within the test site directory.
 
