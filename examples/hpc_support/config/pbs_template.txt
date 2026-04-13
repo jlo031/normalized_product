@@ -14,4 +14,4 @@ source {conda_sh}
 conda activate {conda_env}
 
 # added -u option for unbuffered processing, giving continuous logfile updates
-python3 -u {run_script_path} "{img_pair_dir}" "{windows}" "{save_intermediate_products}" "{loglevel}"
+python3 -u {run_script_path} "{img_pair_dir}" "{windows}" "{save_intermediate_products}" "{stack_2_RGB}" "{np_min}" "{np_max}" "{loglevel}"

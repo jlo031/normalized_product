@@ -483,7 +483,7 @@ def stack_2_RGB(
 
     # Save RGB to disk
     driver = gdal.GetDriverByName("GTIFF")
-    out_ds = driver.Create("test.tif", ds.RasterXSize, ds.RasterYSize, 3, gdal.GDT_Byte, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
+    out_ds = driver.Create(output_path, ds.RasterXSize, ds.RasterYSize, 3, gdal.GDT_Byte, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
     out_ds.SetGeoTransform(ds.GetGeoTransform())
     out_ds.SetProjection(ds.GetProjection())
     out_ds.GetRasterBand(1).WriteArray(img_rgb[:,:,0])

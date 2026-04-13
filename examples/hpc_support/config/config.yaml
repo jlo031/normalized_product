@@ -43,6 +43,10 @@ compute_normprod_locally: false
 # Save intermediate products during normprod_smovar computation? (true/false)
 save_intermediate_products: false
 
+# Stack the normprod_smovar images from different window sizes to RGB? (true/false)
+# The RGB image is needed for further processing with SAM
+stack_2_RGB: true
+
 # Set min/max values for normprod_smovar RGB scaling
 # Default values used for Gabby's paper are -0.1 and +1.0
 np_min: -0.5
