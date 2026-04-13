@@ -36,6 +36,9 @@ def run_single_pair():
     parser.add_argument("IMG_PAIR_DIR", type=Path, help="Path to the image pair directory")
     parser.add_argument("windows", type=str, help="Python-style list string of window sizes")
     parser.add_argument("save_intermediate_products", type=str_to_bool, help="True/False")
+    parser.add_argument("stack_2_RGB", type=str_to_bool, help="True/False")
+    parser.add_argument("np_min", type=float, help="Min value for NP scaling to RGB")
+    parser.add_argument("np_max", type=float, help="Max value for NP scaling to RGB")
     parser.add_argument("loglevel", type=str, help="Set loglevel")
 
     args = parser.parse_args()
@@ -80,6 +83,8 @@ def run_single_pair():
             args.IMG_PAIR_DIR,
             windows=window_list,
             save_intermediate_products=args.save_intermediate_products,
+            np_min=args.np_min,
+            np_max=args.np_max,
         )
 
         logger.success("Processing complete.")

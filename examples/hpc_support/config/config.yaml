@@ -43,6 +43,11 @@ compute_normprod_locally: false
 # Save intermediate products during normprod_smovar computation? (true/false)
 save_intermediate_products: false
 
+# Set min/max values for normprod_smovar RGB scaling
+# Default values used for Gabby's paper are -0.1 and +1.0
+np_min: -0.5
+np_max: 1.0
+
 # Set your loglevel (DEBUG/INFO)
 loglevel: INFO
 
