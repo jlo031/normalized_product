@@ -44,7 +44,7 @@ compute_normprod_locally: false
 save_intermediate_products: false
 
 # Set your loglevel (DEBUG/INFO)
-loglevel: DEBUG
+loglevel: INFO
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
