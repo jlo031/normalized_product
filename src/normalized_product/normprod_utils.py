@@ -389,6 +389,119 @@ def check_and_trim_image_pair(
 
     return True
 
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+def stack_2_RGB(
+    img1_path,
+    img2_path,
+    img3_path,
+    output_path,
+    img_min = -0.5,
+    img_max = 1.0,
+    new_min = 0,
+    new_max = 255,
+    overwrite = False
+):
+    """
+    Stack input images to 8-bit integer RGB image.
+
+    Parameters
+    ----------
+    img1_path : Path to 1st input image, used for red channel
+    img2_path : Path to 2nd input image, used for green channel
+    img3_path : Path to 3rd input image, used for blue channel
+    output_path : Path to output RGB image
+    img_min : Minimum value for input images (default=-0.5 for normprod_smovar),
+    img_max : Maximum value for input images (default=1.0 normprod_smovar),
+    newMin : New minimum for RGB image channels (default=0),
+    newMax : New maximum for RGB image channels (default=255),
+    overwrite : Overwrite previous existing results (default=False)
+
+    Returns
+    -------
+    """
+
+    logger.info("Starting to stack images to RGB...")
+
+    img1_path = pathlib.Path(img1_path)
+    img2_path = pathlib.Path(img2_path)
+    img3_path = pathlib.Path(img3_path)
+    output_path = pathlib.Path(output_path)
+
+    logger.debug(f"img1_path: {img1_path}")
+    logger.debug(f"img2_path: {img2_path}")
+    logger.debug(f"img3_path: {img3_path}")
+    logger.debug(f"output_path: {output_path}")
+    
+    if not img1_path.is_file():
+        logger.error(f"Could not find first input image: {img1_path}")
+        return False
+
+    if not img2_path.is_file():
+        logger.error(f"Could not find second input image: {img2_path}")
+        return False
+
+    if not img3_path.is_file():
+        logger.error(f"Could not find third input image: {img3_path}")
+        return False
+
+    if output_path.is_file() and not overwrite:
+        logger.info(f"RGB output file already exists: {output_path}")
+        return True
+
+# --------------------- #
+
+    # convert min and max strings to integers
+    img_min = int(img_min)
+    img_max = int(img_max)
+    new_min = int(new_min)
+    new_max = int(new_max)
+
+    # Read input images
+    img1 = gdal.Open(img1_path).ReadAsArray()
+    img2 = gdal.Open(img2_path).ReadAsArray()
+    img3 = gdal.Open(img3_path).ReadAsArray()
+
+    # Normalize all three channels
+    img1_norm = ((img1-img_min)/(img_max-img_min)*(new_max-new_min)).astype(np.uint8)
+    img2_norm = ((img2-img_min)/(img_max-img_min)*(new_max-new_min)).astype(np.uint8)
+    img3_norm = ((img3-img_min)/(img_max-img_min)*(new_max-new_min)).astype(np.uint8)
+
+    logger.debug("Finished normalization of input images")
+
+    # Stack channels into RGB image
+    img_rgb = np.dstack((img1_norm, img2_norm, img3_norm))
+
+    logger.debug("Stacked images to RGB")
+
+# --------------------- #
+
+    # Get meta-data from first input image
+    ds = gdal.Open(img1_path, gdal.GA_ReadOnly)
+
+    # Save RGB to disk
+    driver = gdal.GetDriverByName("GTIFF")
+    out_ds = driver.Create("test.tif", ds.RasterXSize, ds.RasterYSize, 3, gdal.GDT_Byte, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
+    out_ds.SetGeoTransform(ds.GetGeoTransform())
+    out_ds.SetProjection(ds.GetProjection())
+    out_ds.GetRasterBand(1).WriteArray(img_rgb[:,:,0])
+    out_ds.GetRasterBand(1).SetNoDataValue(np.nan)
+    out_ds.GetRasterBand(2).WriteArray(img_rgb[:,:,1])
+    out_ds.GetRasterBand(2).SetNoDataValue(np.nan)
+    out_ds.GetRasterBand(3).WriteArray(img_rgb[:,:,2])
+    out_ds.GetRasterBand(3).SetNoDataValue(np.nan)
+    out_ds.FlushCache()
+
+    # Clean up
+    out_ds = None
+    ds = None
+
+    logger.info(f"Saved RGB image: {output_path}")
+
+    return True
+
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
