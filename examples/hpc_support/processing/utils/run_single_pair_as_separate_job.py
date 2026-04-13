@@ -81,10 +81,11 @@ def run_single_pair():
         
         normprod.fully_process_single_image_pair(
             args.IMG_PAIR_DIR,
-            windows=window_list,
-            save_intermediate_products=args.save_intermediate_products,
-            np_min=args.np_min,
-            np_max=args.np_max,
+            windows = window_list,
+            save_intermediate_products = args.save_intermediate_products,
+            stack_2_RGB = args.stack_2_RGB,
+            np_min = args.np_min,
+            np_max = args.np_max,
         )
 
         logger.success("Processing complete.")
