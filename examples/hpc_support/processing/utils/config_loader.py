@@ -27,7 +27,7 @@ def load_config(config_path="../config/config.yaml"):
         logger.debug(f"Set config_path: {config_path}")
 
         if not config_path.is_file():
-            logger.warning(f"Could not find resest config_path: {config_path}")
+            logger.error(f"Could not find re-set config_path: {config_path}")
             return False
 
         else:

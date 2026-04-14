@@ -11,48 +11,56 @@
 #
 # Individual folders for each image pair will be placed into 'SITE_DIR'
 #
+# All other parameters are set to 'standard' settings, but can be adjusted
+# for further testing and development. 
+#
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
-# Define main data directory
+# Set path to main data directory
 data_dir: "/g/data/jk72/jl0818/DATA/fast_ice_tests"
 
 # Define study site
-site: "Thwaites"
+site: "McMurdo"
 
-# Define min and max values for allowed temporal baseline
+# Set min and max values for allowed temporal baseline
 min_temp_baseline: 11.9
 max_temp_baseline: 12.1
 
-# Define EPSG code for outputs (standard for Antarctica: 3031)
+# Set EPSG code for outputs (standard for Antarctica: 3031)
 output_epsg: 3031
 
-# Window sizes
+# Window sizes (published standard settings 11, 21, 33)
 window_list:
   - 11
   - 21
   - 33
 
 # Do you want to overwrite already existing products? (true/false)
+# Overwrite option actually not fully implemented yet
 overwrite: false
 
 # Compute normprod locally (true/false)
+# Approx. 35 minutes per image per
 # Not recommended when processing multiple image pairs!
 compute_normprod_locally: false
 
 # Save intermediate products during normprod_smovar computation? (true/false)
+# Only needed during development or trouble-shooting
 save_intermediate_products: false
 
 # Stack the normprod_smovar images from different window sizes to RGB? (true/false)
 # The RGB image is needed for further processing with SAM
+# Stacking is hard-coded as RGB with the order of the window_list above
 stack_2_RGB: true
 
 # Set min/max values for normprod_smovar RGB scaling
-# Default values used for Gabby's paper are -0.1 and +1.0
+# This is what SAM will see
+# Published default settings are [-0.5, +1.0]
 np_min: -0.5
 np_max: 1.0
 
-# Set your loglevel (DEBUG/INFO)
+# Set loglevel (DEBUG/INFO)
 loglevel: INFO
 
 # -------------------------------------------------------------------------- #
@@ -60,7 +68,7 @@ loglevel: INFO
 
 # PARAMETERS SPECIFIC TO DISTRIBUTED BATCH PROCESSING
 
-# Set path to conda.sh file
+# Set path to your local conda.sh file
 # Required to activate anaconda environment during distributed normprod processing
 conda_sh: "/g/data/jk72/jl0818/miniconda3_jo/etc/profile.d/conda.sh"
 
@@ -77,7 +85,8 @@ pbs_run_script: "./utils/run_single_pair_as_separate_job.py"
 
 # Set path to log_dir for distributed batch processing
 # Place this wherever you want to keep track of your processing
-pbs_log_dir: "./batch_processing_logs/logs"
+# Individual PBS scripts will also be saved here
+pbs_log_dir: "./batch_processing_logs/McMurdo/logs"
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
