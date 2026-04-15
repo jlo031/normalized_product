@@ -453,17 +453,19 @@ def stack_2_RGB(
 
 # --------------------- #
 
-    # convert min and max strings to integers
-    img_min = int(img_min)
-    img_max = int(img_max)
-    new_min = int(new_min)
-    new_max = int(new_max)
-
     # Read input images
     img1 = gdal.Open(img1_path).ReadAsArray()
     img2 = gdal.Open(img2_path).ReadAsArray()
     img3 = gdal.Open(img3_path).ReadAsArray()
 
+    # clip to min and max
+    img1[img1<img_min] = img_min
+    img1[img1>img_max] = img_max
+    img2[img2<img_min] = img_min
+    img2[img2>img_max] = img_max
+    img3[img3<img_min] = img_min
+    img3[img3>img_max] = img_max
+    
     # Normalize all three channels
     img1_norm = ((img1-img_min)/(img_max-img_min)*(new_max-new_min)).astype(np.uint8)
     img2_norm = ((img2-img_min)/(img_max-img_min)*(new_max-new_min)).astype(np.uint8)

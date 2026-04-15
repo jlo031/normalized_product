@@ -464,7 +464,7 @@ def fully_process_single_image_pair(
         compute_DoB(georeg_path_2, dob_path_2, window)
 
         compute_local_std(georeg_path_1, std_path_1, window)
-        compute_local_std(georeg_path_1, std_path_2, window)
+        compute_local_std(georeg_path_2, std_path_2, window)
 
         logger.info(f"Computing normprod_smovar for window: {window}")
 
