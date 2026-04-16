@@ -47,7 +47,7 @@ compute_normprod_locally: false
 
 # Save intermediate products during normprod_smovar computation? (true/false)
 # Only needed during development or trouble-shooting
-save_intermediate_products: true
+save_intermediate_products: false
 
 # Stack the normprod_smovar images from different window sizes to RGB? (true/false)
 # The RGB image is needed for further processing with SAM
