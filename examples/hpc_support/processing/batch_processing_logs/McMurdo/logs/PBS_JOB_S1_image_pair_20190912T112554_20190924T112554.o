@@ -1,0 +1,60 @@
+2026-04-15 17:01:21.247 | INFO     | __main__:run_single_pair:74 - IMG_PAIR_DIR: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554
+2026-04-15 17:01:21.247 | INFO     | __main__:run_single_pair:75 - window_list:  [11, 21, 33]
+2026-04-15 17:01:21.247 | INFO     | __main__:run_single_pair:76 - Save intermediates: False
+2026-04-15 17:01:23.032 | INFO     | normalized_product.normprod:fully_process_single_image_pair:397 - Starting full normprod processing chain for img_pair_dir...
+2026-04-15 17:01:23.034 | INFO     | normalized_product.normprod:fully_process_single_image_pair:426 - Found 2 georeg*tif files in img_pair_dir:
+2026-04-15 17:01:23.034 | INFO     | normalized_product.normprod:fully_process_single_image_pair:428 - georeg_1: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_1_20190912_EPSG3031.tif
+2026-04-15 17:01:23.034 | INFO     | normalized_product.normprod:fully_process_single_image_pair:428 - georeg_2: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_2_20190924_EPSG3031.tif
+2026-04-15 17:01:23.034 | INFO     | normalized_product.normprod:fully_process_single_image_pair:436 - Computing DoB, local_std, and normprod_smovar for the following window sizes: [11, 21, 33]
+2026-04-15 17:01:23.034 | INFO     | normalized_product.normprod:fully_process_single_image_pair:449 - Computing DoB and local std for window: 11
+2026-04-15 17:01:23.034 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=11...
+2026-04-15 17:01:36.339 | INFO     | normalized_product.normprod:compute_DoB:78 - Saved DoB image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_1_20190912_EPSG3031_DoB_window11.tif
+2026-04-15 17:01:36.343 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=11...
+2026-04-15 17:01:50.031 | INFO     | normalized_product.normprod:compute_DoB:78 - Saved DoB image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_2_20190924_EPSG3031_DoB_window11.tif
+2026-04-15 17:01:50.036 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=11...
+2026-04-15 17:02:02.481 | INFO     | normalized_product.normprod:compute_local_std:138 - Saved local std image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_1_20190912_EPSG3031_local_std_window11.tif
+2026-04-15 17:02:02.486 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=11...
+2026-04-15 17:02:14.841 | INFO     | normalized_product.normprod:compute_local_std:138 - Saved local std image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_2_20190924_EPSG3031_local_std_window11.tif
+2026-04-15 17:02:14.846 | INFO     | normalized_product.normprod:fully_process_single_image_pair:469 - Computing normprod_smovar for window: 11
+2026-04-15 17:02:14.846 | INFO     | normalized_product.normprod:compute_normprod:167 - Starting normprod_smovar computation for w=11...
+2026-04-15 17:14:29.487 | INFO     | normalized_product.normprod:compute_normprod:355 - Saved normprod_smovar: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/normprod_smovar_window11.tif.
+2026-04-15 17:14:29.508 | INFO     | normalized_product.normprod:fully_process_single_image_pair:449 - Computing DoB and local std for window: 21
+2026-04-15 17:14:29.508 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=21...
+2026-04-15 17:14:39.715 | INFO     | normalized_product.normprod:compute_DoB:78 - Saved DoB image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_1_20190912_EPSG3031_DoB_window21.tif
+2026-04-15 17:14:39.737 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=21...
+2026-04-15 17:14:50.171 | INFO     | normalized_product.normprod:compute_DoB:78 - Saved DoB image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_2_20190924_EPSG3031_DoB_window21.tif
+2026-04-15 17:14:50.175 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=21...
+2026-04-15 17:15:02.748 | INFO     | normalized_product.normprod:compute_local_std:138 - Saved local std image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_1_20190912_EPSG3031_local_std_window21.tif
+2026-04-15 17:15:02.753 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=21...
+2026-04-15 17:15:15.384 | INFO     | normalized_product.normprod:compute_local_std:138 - Saved local std image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_2_20190924_EPSG3031_local_std_window21.tif
+2026-04-15 17:15:15.390 | INFO     | normalized_product.normprod:fully_process_single_image_pair:469 - Computing normprod_smovar for window: 21
+2026-04-15 17:15:15.390 | INFO     | normalized_product.normprod:compute_normprod:167 - Starting normprod_smovar computation for w=21...
+2026-04-15 17:29:28.661 | INFO     | normalized_product.normprod:compute_normprod:355 - Saved normprod_smovar: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/normprod_smovar_window21.tif.
+2026-04-15 17:29:28.684 | INFO     | normalized_product.normprod:fully_process_single_image_pair:449 - Computing DoB and local std for window: 33
+2026-04-15 17:29:28.685 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=33...
+2026-04-15 17:29:38.814 | INFO     | normalized_product.normprod:compute_DoB:78 - Saved DoB image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_1_20190912_EPSG3031_DoB_window33.tif
+2026-04-15 17:29:38.818 | INFO     | normalized_product.normprod:compute_DoB:29 - Starting DoB computation for w=33...
+2026-04-15 17:29:49.022 | INFO     | normalized_product.normprod:compute_DoB:78 - Saved DoB image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_2_20190924_EPSG3031_DoB_window33.tif
+2026-04-15 17:29:49.026 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=33...
+2026-04-15 17:30:01.596 | INFO     | normalized_product.normprod:compute_local_std:138 - Saved local std image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_1_20190912_EPSG3031_local_std_window33.tif
+2026-04-15 17:30:01.601 | INFO     | normalized_product.normprod:compute_local_std:88 - Starting local std computation for w=33...
+2026-04-15 17:30:14.188 | INFO     | normalized_product.normprod:compute_local_std:138 - Saved local std image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/georeg_2_20190924_EPSG3031_local_std_window33.tif
+2026-04-15 17:30:14.193 | INFO     | normalized_product.normprod:fully_process_single_image_pair:469 - Computing normprod_smovar for window: 33
+2026-04-15 17:30:14.193 | INFO     | normalized_product.normprod:compute_normprod:167 - Starting normprod_smovar computation for w=33...
+2026-04-15 17:48:36.193 | INFO     | normalized_product.normprod:compute_normprod:355 - Saved normprod_smovar: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/normprod_smovar_window33.tif.
+2026-04-15 17:48:36.215 | INFO     | normalized_product.normprod:fully_process_single_image_pair:483 - Stacking to false-color RGB
+2026-04-15 17:48:36.215 | INFO     | normalized_product.normprod_utils:stack_2_RGB:426 - Starting to stack images to RGB...
+2026-04-15 17:48:47.652 | INFO     | normalized_product.normprod_utils:stack_2_RGB:503 - Saved RGB image: /g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554/normprod_smovar_RGB.tif
+2026-04-15 17:48:47.656 | SUCCESS  | __main__:run_single_pair:91 - Processing complete.
+
+======================================================================================
+                  Resource Usage on 2026-04-15 17:48:51:
+   Job Id:             165734211.gadi-pbs
+   Project:            jk72
+   Exit Status:        0
+   Service Units:      9.66
+   NCPUs Requested:    2                   CPU Time Used: 00:47:28        
+   Memory Requested:   24.0GB                Memory Used: 11.43GB         
+   Walltime Requested: 03:00:00            Walltime Used: 00:48:19        
+   JobFS Requested:    100.0MB                JobFS Used: 0B              
+======================================================================================
