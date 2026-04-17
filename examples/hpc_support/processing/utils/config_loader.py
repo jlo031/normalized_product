@@ -42,6 +42,8 @@ def load_config(config_path="../config/config.yaml"):
     cfg['SITE_DIR']    = cfg['DATA_DIR'] / cfg['site']
     cfg['GEOTIFF_DIR'] = cfg['SITE_DIR'] / "GA_geotiffs"
 
+    cfg['LANDMASK_SHAPEFILE_PATH'] = pathlib.Path(cfg['landmask_shapefile_path']).resolve()
+
     cfg['PBS_TEMPLATE_FILE'] = pathlib.Path(cfg['pbs_template']).resolve()
     cfg['PBS_RUN_SCRIPT']    = pathlib.Path(cfg['pbs_run_script']).resolve()
     cfg['PBS_LOG_DIR']       = pathlib.Path(cfg['pbs_log_dir']).resolve()

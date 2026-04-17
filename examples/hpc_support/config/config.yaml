@@ -49,16 +49,20 @@ compute_normprod_locally: false
 # Only needed during development or trouble-shooting
 save_intermediate_products: false
 
-# Stack the normprod_smovar images from different window sizes to RGB? (true/false)
-# The RGB image is needed for further processing with SAM
-# Stacking is hard-coded as RGB with the order of the window_list above
-stack_2_RGB: true
-
 # Set min/max values for normprod_smovar RGB scaling
 # This is what SAM will see
 # Published default settings are [-0.5, +1.0]
 np_min: -0.5
 np_max: 1.0
+
+# Set path to landmask shapefile
+landmask_shapefile_path: "/g/data/jk72/jl0818/DATA/fast_ice_tests/coastline_shapefiles/add_coastline_high_res_polygon_v7_10/add_coastline_high_res_polygon_v7_10.shp"
+
+# Set landmask erosion in number of pixels on full resolution image
+# The workflow will produce a true and an eroded landmask
+# Landmask erosion is needed to avoid boundary effects from SAM
+# Final fast ice map should be done with the "true" landmask
+erode_landmask = 100
 
 # Set loglevel (DEBUG/INFO)
 loglevel: INFO

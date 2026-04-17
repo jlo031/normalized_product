@@ -36,9 +36,10 @@ def run_single_pair():
     parser.add_argument("IMG_PAIR_DIR", type=Path, help="Path to the image pair directory")
     parser.add_argument("windows", type=str, help="Python-style list string of window sizes")
     parser.add_argument("save_intermediate_products", type=str_to_bool, help="True/False")
-    parser.add_argument("stack_2_RGB", type=str_to_bool, help="True/False")
-    parser.add_argument("np_min", type=float, help="Min value for NP scaling to RGB")
-    parser.add_argument("np_max", type=float, help="Max value for NP scaling to RGB")
+    parser.add_argument("NP_min", type=float, help="Min value for NP scaling to RGB")
+    parser.add_argument("NP_max", type=float, help="Max value for NP scaling to RGB")
+    parser.add_argument("landmask_shapefile_path", type=Path, help="Path to landmask shapefile")
+    parser.add_argument("erode_landmask" type=int, help="Number of pixels for landmask erosion")
     parser.add_argument("loglevel", type=str, help="Set loglevel")
 
     args = parser.parse_args()
@@ -57,6 +58,11 @@ def run_single_pair():
         logger.error(f"Directory not found: {args.IMG_PAIR_DIR}")
         sys.exit(1)
 
+    # Check that landmask_shapefile exists
+    if not args.landmask_shapefile_path.is_file():
+        logger.error(f"File not found: {args.landmask_shapefile_path}")
+        sys.exit(1)
+
     # Parse the window list string
     try:
         window_list = ast.literal_eval(args.windows)
@@ -72,8 +78,12 @@ def run_single_pair():
     # --- Execution ---
 
     logger.info(f"IMG_PAIR_DIR: {args.IMG_PAIR_DIR.resolve()}")
-    logger.info(f"window_list:  {window_list}")
+    logger.info(f"window_list: {window_list}")
     logger.info(f"Save intermediates: {args.save_intermediate_products}")
+    logger.info(f"NP_min: {NP_min}")
+    logger.info(f"NP_max: {NP_max}")
+    logger.info(f"landmask_shapefile: {landmask_shapefile}")
+    logger.info(f"erode_landmask: {erode_landmask}")
 
     try:
         # Import only when needed to keep the CLI snappy
@@ -83,9 +93,10 @@ def run_single_pair():
             args.IMG_PAIR_DIR,
             windows = window_list,
             save_intermediate_products = args.save_intermediate_products,
-            stack_2_RGB = args.stack_2_RGB,
-            np_min = args.np_min,
-            np_max = args.np_max,
+            NP_min = args.NP_min,
+            NP_max = args.NP_max,
+            landmask_shapefile_path = args.landmask_shapefile_path,
+            erode_landmask = args.erode_landmask
         )
 
         logger.success("Processing complete.")
