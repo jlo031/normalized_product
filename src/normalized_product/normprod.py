@@ -370,9 +370,10 @@ def fully_process_single_image_pair(
     img_pair_dir,
     windows = [11,21,33],
     save_intermediate_products = False,
-    stack_2_RGB = True,
-    np_min = -0.5,
-    np_max = 1.0,
+    NP_min = -0.5,
+    NP_max = 1.0,
+    landmask_shapefile_path,
+    erode_landmask = None
 ):
     """
     Full Normprod processing for single image pair that has already been checked and trimmed.
@@ -386,9 +387,10 @@ def fully_process_single_image_pair(
     img_pair_dir : path to image pair directory
     windows : list of window sizes for normprod processing (default=[11,21,33])
     save_intermediate_products : save intermediate products as tif files (default=False)
-    stack_2_RGB : stack the normprod_smovar images to false-color RGB (default=True)
-    np_min : Min value for NP scaling to RGB (default=-0.5)
-    np_max : Max value for NP scaling to RGB (default=1.0)
+    NP_min : Min NP value for scaling to RGB (default=-0.5)
+    NP_max : Max NP value for scaling to RGB (default=1.0)
+    landmask_shapefile_path : Path to landmask shapefile
+    erode_landmask : Erode landmask by number of pixels (default=None)
 
     Returns
     -------
@@ -478,36 +480,73 @@ def fully_process_single_image_pair(
             save_intermediate_products=save_intermediate_products
         )
 
-    if stack_2_RGB:
+    # --------------------- #
 
-        logger.info("Stacking to false-color RGB")
+    logger.info("Stacking to false-color RGB")
 
-        if not len(windows)==3:
-            logger.error(f"Expected three different window sizes for RGB stack, but len(windows) is {len(windows)}")
-            return False
+    if not len(windows)==3:
+        logger.error(f"Expected three different window sizes for RGB stack, but len(windows) is {len(windows)}")
+        return False
 
-        img1_path   = img_pair_dir / f"normprod_smovar_window{windows[0]}.tif"
-        img2_path   = img_pair_dir / f"normprod_smovar_window{windows[1]}.tif"
-        img3_path   = img_pair_dir / f"normprod_smovar_window{windows[2]}.tif"
-        output_path = img_pair_dir / f"normprod_smovar_RGB.tif"
+    img1_path   = img_pair_dir / f"normprod_smovar_window{windows[0]}.tif"
+    img2_path   = img_pair_dir / f"normprod_smovar_window{windows[1]}.tif"
+    img3_path   = img_pair_dir / f"normprod_smovar_window{windows[2]}.tif"
+    output_path = img_pair_dir / f"normprod_smovar_RGB.tif"
 
-        logger.debug(f"np_min:{np_min}")
-        logger.debug(f"np_min:{np_max}")
-        logger.debug(f"img1_path:{img1_path}")
-        logger.debug(f"img2_path:{img2_path}")
-        logger.debug(f"img3_path:{img3_path}")
+    logger.debug(f"NP_min:{NP_min}")
+    logger.debug(f"NP_min:{NP_max}")
+    logger.debug(f"img1_path:{img1_path}")
+    logger.debug(f"img2_path:{img2_path}")
+    logger.debug(f"img3_path:{img3_path}")
 
-        normprod_utils.stack_2_RGB(
-            img1_path,
-            img2_path,
-            img3_path,
-            output_path,
-            img_min = np_min,
-            img_max = np_max,
-            new_min = 0,
-            new_max = 255,
-            overwrite = False
+    normprod_utils.stack_2_RGB(
+        img1_path,
+        img2_path,
+        img3_path,
+        output_path,
+        img_min = NP_min,
+        img_max = NP_max,
+        new_min = 0,
+        new_max = 255,
+        overwrite = False
+    )
+
+    # --------------------- #
+
+    logger.info("Creating landmasks")
+
+    geotiff_path  = img_pair_dir / f"normprod_smovar_RGB.tif"
+    output_path_1 = img_pair_dir / f"landmask.tif"
+    output_path_2 = img_pair_dir / f"landmask_eroded_{erode_landmask}.tif"
+
+    logger.debug(f"geotiff_path:            {geotiff_path}")
+    logger.debug(f"output_path_1:           {output_path_1}")
+    logger.debug(f"output_path_2:           {output_path_2}")
+    logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
+
+    save_landmask_file_4_geotiff(
+        geotiff_path,
+        landmask_shapefile_path,
+        output_path_1,
+        erode_landmask=None,
+    )
+
+    if erode_landmask is not None:
+
+        save_landmask_file_4_geotiff(
+            geotiff_path,
+            landmask_shapefile_path,
+            output_path_2,
+            erode_landmask=erode_landmask,
         )
+
+    
+    # --------------------- #
+
+    logger.info("Resampling")
+
+
+
 
     return True
 

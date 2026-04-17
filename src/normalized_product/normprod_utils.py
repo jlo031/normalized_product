@@ -16,8 +16,11 @@ from loguru import logger
 from datetime import datetime
 
 import numpy as np
-from scipy.ndimage import uniform_filter
+from scipy.ndimage import uniform_filter, zoom, minimum_filter1d
 
+import geopandas as gpd
+import rasterio
+from rasterio.features import rasterize
 from osgeo import gdal, osr
 
 # -------------------------------------------------------------------------- #
@@ -26,16 +29,16 @@ from osgeo import gdal, osr
 def check_raster_stats(filepath):
     """Prints min, max, mean, and std of a raster file."""
 
-    filepath = pathlib.Path(filepath)
+    filepath = pathlib.Path(filepath).resolve()
 
     if not filepath.is_file():
         logger.error(f"Cannot find filepath: {filepath}.")
-        return
+        return False
     
     ds = gdal.Open(filepath, gdal.GA_ReadOnly)
     if ds is None:
         logger.error(f"Cannot open filepath: {filepath}.")
-        return
+        return False
     
     arr = ds.GetRasterBand(1).ReadAsArray()
     print(f"Stats for: {filepath.name}:")
@@ -46,7 +49,7 @@ def check_raster_stats(filepath):
     print(f"    Std Dev: {np.nanstd(arr)}\n")
     ds = None
 
-    return
+    return True
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -72,6 +75,7 @@ def fill_nans(image):
 # -------------------------------------------------------------------------- #
 
 # NEEDED? SAME AS np.nanmean ?
+# Let's keep it for now, it works and is probably not the bottleneck for processing
 
 def nan_safe_mean_filter(values):
     """Computes the mean of non-NaN values."""
@@ -97,7 +101,8 @@ def extract_date_from_filename(filename):
 
     return date
 
-# --------------------- #
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
 
 def extract_date_from_datestring(datestring):
     """Convert datestring (YYYYMMDDThhmmss) to datetime.datetime"""
@@ -197,8 +202,8 @@ def check_and_trim_image_pair(
         return False
 
     # Set inddividual paths to both input images
-    img_path_1 = pathlib.Path(img_pair[0])
-    img_path_2 = pathlib.Path(img_pair[1])
+    img_path_1 = pathlib.Path(img_pair[0]).resolve()
+    img_path_2 = pathlib.Path(img_pair[1]).resolve()
 
     logger.debug(f"img_path_1: {img_path_1}")
     logger.debug(f"img_path_2: {img_path_2}")
@@ -212,7 +217,7 @@ def check_and_trim_image_pair(
         logger.error(f"Could not find second input image: {img_path_2}")
         return False
 
-# --------------------- #
+    # --------------------- #
 
     # Set/extract dates
     # 'extract_date' implemented in this module is VERY specific to GA naming convention
@@ -246,7 +251,7 @@ def check_and_trim_image_pair(
         logger.info(f"skipping this pair because temporal baseline is outside of defined range.")
         return False
 
-# --------------------- #
+    # --------------------- #
 
     # Ensure that output_dir exists
     output_dir = pathlib.Path(output_dir)
@@ -268,7 +273,7 @@ def check_and_trim_image_pair(
         georeg1_path.unlink(missing_ok=True)
         georeg1_path.unlink(missing_ok=True)
 
-# --------------------- #
+    # --------------------- #
 
     logger.info("Passed initial checks, reading data and checking valid extent...")
 
@@ -289,7 +294,7 @@ def check_and_trim_image_pair(
         min_y = max(extent1[1], extent2[1])  # Max of min_y
         max_x = min(extent1[2], extent2[2])  # Min of max_x
         max_y = min(extent1[3], extent2[3])  # Min of max_y
-        xRes = min(extent1[4], extent2[4])  # Use the finer resolution
+        xRes = min(extent1[4], extent2[4])   # Use the finer resolution
         yRes = min(extent1[5], extent2[5])  
 
         # Check if valid intersection exists
@@ -301,7 +306,7 @@ def check_and_trim_image_pair(
         logger.info(f"Skipping this pair because one image does not contain valid data.")
         return False
 
-# --------------------- #
+   # --------------------- #
 
     logger.info("Warping both images to common projection and overlapping footprint...")
 
@@ -341,7 +346,7 @@ def check_and_trim_image_pair(
     # Clean up
     DS1, DS2 = None, None
 
-# --------------------- #
+    # --------------------- #
 
     logger.info("Trimming reprojected images and to common valid points...")
 
@@ -389,7 +394,6 @@ def check_and_trim_image_pair(
 
     return True
 
-
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
 
@@ -413,10 +417,10 @@ def stack_2_RGB(
     img2_path : Path to 2nd input image, used for green channel
     img3_path : Path to 3rd input image, used for blue channel
     output_path : Path to output RGB image
-    img_min : Minimum value for input images (default=-0.5 for normprod_smovar),
-    img_max : Maximum value for input images (default=1.0 normprod_smovar),
-    newMin : New minimum for RGB image channels (default=0),
-    newMax : New maximum for RGB image channels (default=255),
+    img_min : Minimum value for input images (default=-0.5 for normprod_smovar)
+    img_max : Maximum value for input images (default=1.0 normprod_smovar)
+    newMin : New minimum for RGB image channels (default=0)
+    newMax : New maximum for RGB image channels (default=255)
     overwrite : Overwrite previous existing results (default=False)
 
     Returns
@@ -425,10 +429,10 @@ def stack_2_RGB(
 
     logger.info("Starting to stack images to RGB...")
 
-    img1_path = pathlib.Path(img1_path)
-    img2_path = pathlib.Path(img2_path)
-    img3_path = pathlib.Path(img3_path)
-    output_path = pathlib.Path(output_path)
+    img1_path = pathlib.Path(img1_path).resolve()
+    img2_path = pathlib.Path(img2_path).resolve()
+    img3_path = pathlib.Path(img3_path).resolve()
+    output_path = pathlib.Path(output_path).resolve()
 
     logger.debug(f"img1_path: {img1_path}")
     logger.debug(f"img2_path: {img2_path}")
@@ -451,7 +455,7 @@ def stack_2_RGB(
         logger.info(f"RGB output file already exists: {output_path}")
         return True
 
-# --------------------- #
+    # --------------------- #
 
     # Read input images
     img1 = gdal.Open(img1_path).ReadAsArray()
@@ -478,7 +482,7 @@ def stack_2_RGB(
 
     logger.debug("Stacked images to RGB")
 
-# --------------------- #
+    # --------------------- #
 
     # Get meta-data from first input image
     ds = gdal.Open(img1_path, gdal.GA_ReadOnly)
@@ -501,6 +505,305 @@ def stack_2_RGB(
     ds = None
 
     logger.info(f"Saved RGB image: {output_path}")
+
+    return True
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+def resample_geotiff(
+    geotiff_path,
+    output_path,
+    zoom_x = 10,
+    zoom_y = 10,
+    order = 1,
+    overwrite = False
+):
+    """
+    Resample geotiff image and write output image to disk.
+
+    Parameters
+    ----------
+    geotiff_path : Path to input geotiff file
+    output_path : Path to resampled output file
+    zoom_x : Resampling factor in x-direction (default=10)
+    zoom_y : Resampling factor in y-direction (default=10)
+    order : Order for interpolation  with scipy.ndimage.zoom (default=1)
+
+    overwrite : Overwrite previous existing results (default=False)
+
+    Returns
+    -------
+    """
+
+    logger.info("Starting resampling of geotiff file...")
+
+    geotiff_path = pathlib.Path(geotiff_path).resolve()
+    output_path  = pathlib.Path(output_path).resolve()
+
+    logger.debug(f"geotiff_path: {geotiff_path}")
+    logger.debug(f"output_path:  {output_path}")
+    
+    if not geotiff_path.is_file():
+        logger.error(f"Could not find geotiff_path: {geotiff_path}")
+        return False
+
+    if output_path.is_file() and not overwrite:
+        logger.info(f"RGB output file already exists: {output_path}")
+        return True
+
+    # --------------------- #
+
+    # Read and adjust the projection
+
+    # Open the original file
+    with gdal.Open(geotiff_path) as ds_orig:
+
+        # Get geoinfo and number of bands
+        n_bands = ds_orig.RasterCount
+        gt = ds_orig.GetGeoTransform()
+        proj = ds_orig.GetProjection()
+
+        # Get data type from first band
+        dtype_code = ds_orig.GetRasterBand(1).DataType
+        dtype_name = gdal.GetDataTypeName(dtype_code)
+
+        # Read data
+        data = ds_orig.ReadAsArray()
+
+    # Calculate the new GeoTransform
+    # gt[1] is pixel width, gt[5] is pixel height
+    new_gt = (
+        gt[0],           # Top-left X remains the same
+        gt[1] * zoom_x,  # Pixel width becomes 10x larger
+        gt[2],           # Rotation 1
+        gt[3],           # Top-left Y remains the same
+        gt[4],           # Rotation 2
+        gt[5] * zoom_y   # Pixel height becomes 10x larger
+    )
+
+    logger.debug(f"number of bands:       {n_bands}")
+    logger.debug(f"dtype_code:            {dtype_code}")
+    logger.debug(f"dtype_name:            {dtype_name}")
+    logger.debug(f"original projection:   {proj}")
+    logger.debug(f"original geotransform: {gt}")
+    logger.debug(f"updated geotransform:  {new_gt}")
+
+    # --------------------- #
+
+    # Fix the zoom factors based on the number of input bands
+
+    logger.debug(f"zoom_x: {zoom_x}")
+    logger.debug(f"zoom_x: {zoom_x}")
+
+    if n_bands==1 and len(data.shape)==2:
+
+        logger.debug("Input geotiff only has 1 band, setting zoom_factors accordingly")
+        zoom_factors = (1/zoom_x, 1/zoom_y)
+
+    elif n_bands>1 and len(data.shape)==3:
+
+        logger.debug("Input geotiff only has more than1 band, setting zoom_factors accordingly")
+        zoom_factors = (1/zoom_x, 1/zoom_y, 1)
+
+        logger.debug("Transposing image dimensions to (Nx, Ny, N_bands)")
+        data = data.transpose(1,2,0)
+
+    else:
+
+        logger.error("Extracted number of bands and shape of read data do not match")
+        #return False 
+   
+    logger.debug(f"data.shape: {data.shape}")
+    logger.debug(f"zoom_factors: {zoom_factors}")
+
+    # --------------------- #
+
+    # Do the resampling
+    data_resampled = zoom(data, zoom=zoom_factors, order=order)
+
+    # --------------------- #
+
+    # Create the new file
+
+    rows, cols = data_resampled.shape[0:2]
+    driver = gdal.GetDriverByName("GTiff")
+    out_ds = driver.Create(output_path, cols, rows, n_bands, dtype_code)
+
+    out_ds.SetGeoTransform(new_gt)
+    out_ds.SetProjection(proj)
+
+    if n_bands>1:
+        for i in range(n_bands):
+            out_ds.GetRasterBand(i + 1).WriteArray(data_resampled[:, :, i])
+
+    elif n_bands==1:
+        out_ds.GetRasterBand(1).WriteArray(data_resampled)
+
+    # Clean up
+    out_ds.FlushCache()
+    out_ds = None
+
+    return True
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+def rasterize_landmask_4_geotiff(
+    geotiff_path,
+    landmask_shapefile_path,
+    erode_landmask=None,
+):
+    """
+    Rasterize a shapefile landmask onto a geotiff raster
+
+    Parameters
+    ----------
+    geotiff_path : Path to input geotiff raster file
+    landmask_shapefile_path : Path to input landmask shapefile
+    erode_landmask : Erode landmask by number of pixels (default=None)
+
+    Returns
+    -------
+    landmask_raster : Array with rasterized landmask
+    """
+
+    logger.info("Starting to rasterize landmask...")
+
+    geotiff_path             = pathlib.Path(geotiff_path).resolve()
+    landmask_shapefile_path  = pathlib.Path(landmask_shapefile_path).resolve()
+
+    logger.debug(f"geotiff_path:             {geotiff_path}")
+    logger.debug(f"landmask_shapefile_path:  {landmask_shapefile_path}")
+    
+    if not geotiff_path.is_file():
+        logger.error(f"Could not find geotiff_path: {geotiff_path}")
+        return False
+
+    if not landmask_shapefile_path.is_file():
+        logger.error(f"Could not find landmask_shapefile_path: {landmask_shapefile_path}")
+        return False
+
+    # --------------------- #
+
+    # Read the landmask shapefile and create the generator for burning
+    landmask_gdf = gpd.read_file(landmask_shapefile_path)
+    shapes = ((geom, 1) for geom in landmask_gdf.geometry)
+
+    # Read required meta data from geotiff
+    with rasterio.open(geotiff_path) as src:
+        bounds = src.bounds
+        xmin, ymin, xmax, ymax = bounds.left, bounds.bottom, bounds.right, bounds.top
+        width = src.width
+        height = src.height
+        transform = rasterio.transform.from_bounds(xmin, ymin, xmax, ymax, width, height)
+
+    logger.debug(f"bounds:    {bounds}")
+    logger.debug(f"width:     {width}")
+    logger.debug(f"height:    {height}")
+    logger.debug(f"transform: {transform}")
+
+    # Burn the landmask onto the raster
+    landmask_raster = rasterize(
+        shapes,
+        out_shape=(height, width),
+        transform=transform,
+        fill=0,
+        default_value=1,
+        dtype="uint8"
+    )
+
+    logger.info("Finished landmask raster")
+
+    # --------------------- #
+
+    if erode_landmask == None:
+        return landmask_raster
+
+    else:
+
+        logger.info(f"Eroding landmask: {erode_landmask} pixels")
+
+        #erode landmask
+        tmp = minimum_filter1d(landmask_raster, size=100, axis=0, mode='constant', cval=0)
+        eroded_landmask_raster = minimum_filter1d(tmp, size=100, axis=1, mode='constant', cval=0)
+
+    return eroded_landmask_raster
+
+# -------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------- #
+
+def save_landmask_file_4_geotiff(
+    geotiff_path,
+    landmask_shapefile_path,
+    output_path,
+    erode_landmask=None,
+):
+    """
+    Rasterize a shapefile landmask onto a geotiff raster and save as new geotiff
+
+    Parameters
+    ----------
+    geotiff_path : Path to input geotiff raster file
+    landmask_shapefile_path : Path to input landmask shapefile
+    output_path : Path to landmask output file
+    erode_landmask : Erode landmask by number of pixels (default=None)
+
+    Returns
+    -------
+    """
+
+    geotiff_path             = pathlib.Path(geotiff_path).resolve()
+    landmask_shapefile_path  = pathlib.Path(landmask_shapefile_path).resolve()
+    output_path              = pathlib.Path(output_path).resolve()
+
+    logger.debug(f"geotiff_path:             {geotiff_path}")
+    logger.debug(f"landmask_shapefile_path:  {landmask_shapefile_path}")
+    logger.debug(f"output_path:              {output_path}")
+    
+    if not geotiff_path.is_file():
+        logger.error(f"Could not find geotiff_path: {geotiff_path}")
+        return False
+
+    if not landmask_shapefile_path.is_file():
+        logger.error(f"Could not find landmask_shapefile_path: {landmask_shapefile_path}")
+        return False
+
+    if output_path.is_file() and not overwrite:
+        logger.info(f"Output file already exists: {output_path}")
+        return True
+
+    # --------------------- #
+
+    # create the landmask raster
+    landmask = rasterize_landmask_4_geotiff(
+        geotiff_path,
+        landmask_shapefile_path,
+        erode_landmask=erode_landmask
+    )
+
+    # --------------------- #
+
+    # Get meta-data from first input image
+    with gdal.Open(geotiff_path, gdal.GA_ReadOnly) as ds:
+        Nx   = ds.RasterXSize
+        Ny   = ds.RasterYSize
+        gt   = ds.GetGeoTransform()
+        proj = ds.GetProjection()
+
+    # Save RGB to disk
+    driver = gdal.GetDriverByName("GTIFF")
+    out_ds = driver.Create(output_path, Nx, Ny, 1, gdal.GDT_Byte, options=["COMPRESS=DEFLATE", "BIGTIFF=YES"])
+    out_ds.SetGeoTransform(gt)
+    out_ds.SetProjection(proj)
+    out_ds.GetRasterBand(1).WriteArray(landmask)
+    out_ds.FlushCache()
+
+    # Clean up
+    out_ds = None
+    ds = None
+
+    logger.info(f"Saved landmask: {output_path}")
 
     return True
 
