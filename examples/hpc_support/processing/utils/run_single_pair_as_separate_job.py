@@ -80,10 +80,10 @@ def run_single_pair():
     logger.info(f"IMG_PAIR_DIR: {args.IMG_PAIR_DIR.resolve()}")
     logger.info(f"window_list: {window_list}")
     logger.info(f"Save intermediates: {args.save_intermediate_products}")
-    logger.info(f"NP_min: {NP_min}")
-    logger.info(f"NP_max: {NP_max}")
-    logger.info(f"landmask_shapefile: {landmask_shapefile}")
-    logger.info(f"erode_landmask: {erode_landmask}")
+    logger.info(f"NP_min: {args.NP_min}")
+    logger.info(f"NP_max: {args.NP_max}")
+    logger.info(f"landmask_shapefile_path: {args.landmask_shapefile_path}")
+    logger.info(f"erode_landmask: {args.erode_landmask}")
 
     try:
         # Import only when needed to keep the CLI snappy
