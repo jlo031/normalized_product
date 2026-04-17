@@ -39,7 +39,7 @@ def run_single_pair():
     parser.add_argument("NP_min", type=float, help="Min value for NP scaling to RGB")
     parser.add_argument("NP_max", type=float, help="Max value for NP scaling to RGB")
     parser.add_argument("landmask_shapefile_path", type=Path, help="Path to landmask shapefile")
-    parser.add_argument("erode_landmask" type=int, help="Number of pixels for landmask erosion")
+    parser.add_argument("erode_landmask", type=int, help="Number of pixels for landmask erosion")
     parser.add_argument("loglevel", type=str, help="Set loglevel")
 
     args = parser.parse_args()
