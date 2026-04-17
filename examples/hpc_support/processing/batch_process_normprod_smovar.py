@@ -54,9 +54,10 @@ def batch_process_img_pair_folders_distributed():
     window_list                = cfg["window_list"]
     compute_normprod_locally   = cfg["compute_normprod_locally"]
     save_intermediate_products = cfg["save_intermediate_products"]
-    stack_2_RGB                = cfg["stack_2_RGB"]
-    np_min                     = cfg["np_min"]
-    np_max                     = cfg["np_max"]
+    NP_min                     = cfg["NP_min"]
+    NP_max                     = cfg["NP_max"]
+    LANDMASK_SHAPEFILE_PATH    = cfg["LANDMASK_SHAPEFILE_PATH"]
+    erode_landmask             = cfg["erode_landmask"]
     overwrite                  = cfg["overwrite"]
     loglevel                   = cfg["loglevel"]
     conda_sh                   = cfg["conda_sh"]
@@ -147,9 +148,10 @@ def batch_process_img_pair_folders_distributed():
             "img_pair_dir": IMG_PAIR_DIR,
             "windows": window_list,
             "save_intermediate_products": save_intermediate_products,
-            "stack_2_RGB": stack_2_RGB,
-            "np_min": np_min,
-            "np_max": np_max,
+            "NP_min": NP_min,
+            "NP_max": NP_max,
+            "landmask_shapefile_path": LANDMASK_SHAPEFILE_PATH,
+            "erode_landmask": erode_landmask,
             "loglevel": loglevel
         }
 
