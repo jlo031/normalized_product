@@ -372,7 +372,7 @@ def fully_process_single_image_pair(
     save_intermediate_products = False,
     NP_min = -0.5,
     NP_max = 1.0,
-    landmask_shapefile_path,
+    landmask_shapefile_path = None,
     erode_landmask = None
 ):
     """
@@ -513,39 +513,38 @@ def fully_process_single_image_pair(
 
     # --------------------- #
 
-    logger.info("Creating landmasks")
+    if landmask_shapefile_path is not None:
 
-    geotiff_path  = img_pair_dir / f"normprod_smovar_RGB.tif"
-    output_path_1 = img_pair_dir / f"landmask.tif"
-    output_path_2 = img_pair_dir / f"landmask_eroded_{erode_landmask}.tif"
+        logger.info("Creating landmasks")
 
-    logger.debug(f"geotiff_path:            {geotiff_path}")
-    logger.debug(f"output_path_1:           {output_path_1}")
-    logger.debug(f"output_path_2:           {output_path_2}")
-    logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
+        geotiff_path  = img_pair_dir / f"normprod_smovar_RGB.tif"
+        output_path_1 = img_pair_dir / f"landmask.tif"
+        output_path_2 = img_pair_dir / f"landmask_eroded_{erode_landmask}.tif"
 
-    save_landmask_file_4_geotiff(
-        geotiff_path,
-        landmask_shapefile_path,
-        output_path_1,
-        erode_landmask=None,
-    )
+        logger.debug(f"geotiff_path:            {geotiff_path}")
+        logger.debug(f"output_path_1:           {output_path_1}")
+        logger.debug(f"output_path_2:           {output_path_2}")
+        logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
 
-    if erode_landmask is not None:
-
-        save_landmask_file_4_geotiff(
-            geotiff_path,
+         save_landmask_file_4_geotiff(
+           geotiff_path,
             landmask_shapefile_path,
-            output_path_2,
-            erode_landmask=erode_landmask,
+            output_path_1,
+            erode_landmask=None,
         )
 
-    
+        if erode_landmask is not None:
+
+            save_landmask_file_4_geotiff(
+                geotiff_path,
+                landmask_shapefile_path,
+                output_path_2,
+               erode_landmask=erode_landmask,
+            )
+
     # --------------------- #
 
     logger.info("Resampling")
-
-
 
 
     return True
