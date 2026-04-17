@@ -526,8 +526,8 @@ def fully_process_single_image_pair(
         logger.debug(f"output_path_2:           {output_path_2}")
         logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
 
-         save_landmask_file_4_geotiff(
-           geotiff_path,
+        save_landmask_file_4_geotiff(
+            geotiff_path,
             landmask_shapefile_path,
             output_path_1,
             erode_landmask=None,
