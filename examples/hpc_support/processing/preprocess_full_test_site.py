@@ -60,6 +60,8 @@ def preprocess_full_test_site():
     LANDMASK_SHAPEFILE_PATH    = cfg["LANDMASK_SHAPEFILE_PATH"]
     erode_landmask             = cfg["erode_landmask"]
     overwrite                  = cfg["overwrite"]
+    resample                   = cfg["resample"]
+    resample_interval          = cfg["resample_interval"]
     loglevel                   = cfg["loglevel"]
     conda_sh                   = cfg["conda_sh"]
     conda_env                  = cfg["conda_env"]

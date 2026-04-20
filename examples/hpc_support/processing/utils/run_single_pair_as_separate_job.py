@@ -40,6 +40,8 @@ def run_single_pair():
     parser.add_argument("NP_max", type=float, help="Max value for NP scaling to RGB")
     parser.add_argument("landmask_shapefile_path", type=Path, help="Path to landmask shapefile")
     parser.add_argument("erode_landmask", type=int, help="Number of pixels for landmask erosion")
+    parser.add_argument("resample", type=str_to_bool, help="True/False")
+    parser.add_argument("resample_interval", type=int, help="Resampling interval")
     parser.add_argument("loglevel", type=str, help="Set loglevel")
 
     args = parser.parse_args()
@@ -84,6 +86,9 @@ def run_single_pair():
     logger.info(f"NP_max: {args.NP_max}")
     logger.info(f"landmask_shapefile_path: {args.landmask_shapefile_path}")
     logger.info(f"erode_landmask: {args.erode_landmask}")
+    logger.info(f"resample: {args.resample}")
+    logger.info(f"resample_interval: {args.resample_interval}")
+
 
     try:
         # Import only when needed to keep the CLI snappy
@@ -96,7 +101,9 @@ def run_single_pair():
             NP_min = args.NP_min,
             NP_max = args.NP_max,
             landmask_shapefile_path = args.landmask_shapefile_path,
-            erode_landmask = args.erode_landmask
+            erode_landmask = args.erode_landmask,
+            resample = args.resample,
+            resample_interval = args.resample_interval,
         )
 
         logger.success("Processing complete.")

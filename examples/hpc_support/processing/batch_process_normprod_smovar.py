@@ -59,6 +59,8 @@ def batch_process_img_pair_folders_distributed():
     LANDMASK_SHAPEFILE_PATH    = cfg["LANDMASK_SHAPEFILE_PATH"]
     erode_landmask             = cfg["erode_landmask"]
     overwrite                  = cfg["overwrite"]
+    resample                   = cfg["resample"]
+    resample_interval          = cfg["resample_interval"]
     loglevel                   = cfg["loglevel"]
     conda_sh                   = cfg["conda_sh"]
     conda_env                  = cfg["conda_env"]
@@ -152,6 +154,8 @@ def batch_process_img_pair_folders_distributed():
             "NP_max": NP_max,
             "landmask_shapefile_path": LANDMASK_SHAPEFILE_PATH,
             "erode_landmask": erode_landmask,
+            "resample": resample,
+            "resample_interval": resample_interval,
             "loglevel": loglevel
         }
 

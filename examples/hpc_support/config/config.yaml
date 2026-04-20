@@ -27,7 +27,7 @@ site: "McMurdo"
 min_temp_baseline: 11.9
 max_temp_baseline: 12.1
 
-# Set EPSG code for outputs (standard for Antarctica: 3031)
+# Set EPSG code for outputs (default for Antarctica: 3031)
 output_epsg: 3031
 
 # Window sizes (published standard settings 11, 21, 33)
@@ -37,7 +37,8 @@ window_list:
   - 33
 
 # Do you want to overwrite already existing products? (true/false)
-# Overwrite option actually not fully implemented yet
+# Overwrite option actually not fully implemented yet.
+# Delete manually if you really want to overwrite
 overwrite: false
 
 # Compute normprod locally (true/false)
@@ -50,7 +51,7 @@ compute_normprod_locally: false
 save_intermediate_products: false
 
 # Set min/max values for normprod_smovar RGB scaling
-# This is what SAM will see
+# This determines the dynamic normprod_smovar range that SAM will see
 # Published default settings are [-0.5, +1.0]
 NP_min: -0.5
 NP_max: 1.0
@@ -63,6 +64,14 @@ landmask_shapefile_path: "/g/data/jk72/jl0818/DATA/fast_ice_tests/coastline_shap
 # Landmask erosion is needed to avoid boundary effects from SAM
 # Final fast ice map should be done with the "true" landmask
 erode_landmask: 100
+
+# Resample RGB and landmask images? (true/false)
+# Published SAM processing is performed on resampled RGB images
+resample: true
+
+# Set resampling interval
+# Published SAM processing works on a 10x10 resampled image
+resample_interval: 10
 
 # Set loglevel (DEBUG/INFO)
 loglevel: INFO
