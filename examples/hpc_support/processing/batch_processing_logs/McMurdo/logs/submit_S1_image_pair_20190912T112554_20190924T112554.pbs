@@ -14,4 +14,4 @@ source /g/data/jk72/jl0818/miniconda3_jo/etc/profile.d/conda.sh
 conda activate NORMPROD
 
 # added -u option for unbuffered processing, giving continuous logfile updates
-python3 -u /home/581/jl0818/work/normalized_product/examples/hpc_support/processing/utils/run_single_pair_as_separate_job.py "/g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554" "[11, 21, 33]" "False" "True" "-0.5" "1.0" "INFO"
+python3 -u /home/581/jl0818/work/normalized_product/examples/hpc_support/processing/utils/run_single_pair_as_separate_job.py "/g/data/jk72/jl0818/DATA/fast_ice_tests/McMurdo/S1_image_pair_20190912T112554_20190924T112554" "[11, 21, 33]" "False" "-0.5" "1.0" "/g/data/jk72/jl0818/DATA/fast_ice_tests/coastline_shapefiles/add_coastline_high_res_polygon_v7_10/add_coastline_high_res_polygon_v7_10.shp" "100" "True" "10" "INFO"
