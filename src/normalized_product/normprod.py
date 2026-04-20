@@ -556,9 +556,9 @@ def fully_process_single_image_pair(
         )
 
 
-        if resampling:
+        if resample:
 
-            logger.info("Resampling landmask image")
+            logger.info("resample landmask image")
 
             geotiff_path = img_pair_dir / f"landmask.tif"
             output_path  = img_pair_dir / f"landmask_resampled_{resample_interval}_{resample_interval}.tif"
@@ -597,7 +597,7 @@ def fully_process_single_image_pair(
             )
 
 
-            if resampling:
+            if resample:
 
                 logger.info("Resampling eroded landmask image")
 
