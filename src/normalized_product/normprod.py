@@ -558,22 +558,20 @@ def fully_process_single_image_pair(
 
         if resample:
 
-            logger.info("resample landmask image")
+            logger.info("Creating resampled landmask image")
 
-            geotiff_path = img_pair_dir / f"landmask.tif"
+            geotiff_path = img_pair_dir / f"normprod_smovar_RGB_resampled_{resample_interval}_{resample_interval}.tif"
             output_path  = img_pair_dir / f"landmask_resampled_{resample_interval}_{resample_interval}.tif"
 
             logger.debug(f"geotiff_path:      {geotiff_path}")
             logger.debug(f"output_path:       {output_path}")
             logger.debug(f"resample_interval: {resample_interval}")
 
-            normprod_utils.resample_geotiff(
+            normprod_utils.save_landmask_file_4_geotiff(
                 geotiff_path,
+                landmask_shapefile_path,
                 output_path,
-                zoom_x=resample_interval,
-                zoom_y=resample_interval,
-                order=1,
-                overwrite=False,
+                erode_landmask=None,
             )
 
         # --------------------- #
@@ -593,28 +591,26 @@ def fully_process_single_image_pair(
                 geotiff_path,
                 landmask_shapefile_path,
                 output_path,
-               erode_landmask=erode_landmask,
+                erode_landmask=None,
             )
 
 
             if resample:
 
-                logger.info("Resampling eroded landmask image")
+                logger.info("Resampling eroded resampled landmask image")
 
-                geotiff_path = img_pair_dir / f"landmask_eroded_{erode_landmask}.tif"
+                geotiff_path = img_pair_dir / f"normprod_smovar_RGB_resampled_{resample_interval}_{resample_interval}.tif"
                 output_path  = img_pair_dir / f"landmask_eroded_{erode_landmask}_resampled_{resample_interval}_{resample_interval}.tif"
 
                 logger.debug(f"geotiff_path:      {geotiff_path}")
                 logger.debug(f"output_path:       {output_path}")
                 logger.debug(f"resample_interval: {resample_interval}")
 
-                normprod_utils.resample_geotiff(
+                normprod_utils.save_landmask_file_4_geotiff(
                     geotiff_path,
+                    landmask_shapefile_path,
                     output_path,
-                    zoom_x=resample_interval,
-                    zoom_y=resample_interval,
-                    order=1,
-                    overwrite=False,
+                    erode_landmask=erode_landmask,
                 )
 
     # --------------------- #
