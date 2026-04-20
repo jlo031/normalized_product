@@ -373,7 +373,9 @@ def fully_process_single_image_pair(
     NP_min = -0.5,
     NP_max = 1.0,
     landmask_shapefile_path = None,
-    erode_landmask = None
+    erode_landmask = None,
+    resample = True,
+    resample_interval = 10,
 ):
     """
     Full Normprod processing for single image pair that has already been checked and trimmed.
@@ -384,14 +386,15 @@ def fully_process_single_image_pair(
 
     Parameters
     ----------
-    img_pair_dir : path to image pair directory
-    windows : list of window sizes for normprod processing (default=[11,21,33])
-    save_intermediate_products : save intermediate products as tif files (default=False)
+    img_pair_dir : Path to image pair directory
+    windows : List of window sizes for normprod processing (default=[11,21,33])
+    save_intermediate_products : Save intermediate products as tif files (default=False)
     NP_min : Min NP value for scaling to RGB (default=-0.5)
     NP_max : Max NP value for scaling to RGB (default=1.0)
     landmask_shapefile_path : Path to landmask shapefile
     erode_landmask : Erode landmask by number of pixels (default=None)
-
+    resample : Resample NP RGB image for processing with SAM (default=True)
+    resample_interval : Resamping interval (default=10)
     Returns
     -------
     """
@@ -511,29 +514,80 @@ def fully_process_single_image_pair(
         overwrite = False
     )
 
+
+    if resample:
+
+        logger.info("Resampling RGB image")
+
+        geotiff_path = img_pair_dir / f"normprod_smovar_RGB.tif"
+        output_path  = img_pair_dir / f"normprod_smovar_RGB_resampled_{resample_interval}_{resample_interval}.tif"
+
+        logger.debug(f"geotiff_path:      {geotiff_path}")
+        logger.debug(f"output_path:       {output_path}")
+        logger.debug(f"resample_interval: {resample_interval}")
+
+        normprod_utils.resample_geotiff(
+            geotiff_path,
+            output_path,
+            zoom_x=resample_interval,
+            zoom_y=resample_interval,
+            order=1,
+            overwrite=False,
+        )
+
     # --------------------- #
 
     if landmask_shapefile_path is not None:
 
-        logger.info("Creating landmasks")
+        logger.info("Creating landmask image")
 
-        geotiff_path  = img_pair_dir / f"normprod_smovar_RGB.tif"
-        output_path_1 = img_pair_dir / f"landmask.tif"
-        output_path_2 = img_pair_dir / f"landmask_eroded_{erode_landmask}.tif"
+        geotiff_path = img_pair_dir / f"normprod_smovar_RGB.tif"
+        output_path  = img_pair_dir / f"landmask.tif"
 
         logger.debug(f"geotiff_path:            {geotiff_path}")
-        logger.debug(f"output_path_1:           {output_path_1}")
-        logger.debug(f"output_path_2:           {output_path_2}")
+        logger.debug(f"output_path:             {output_path}")
         logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
 
         save_landmask_file_4_geotiff(
             geotiff_path,
             landmask_shapefile_path,
-            output_path_1,
+            output_path,
             erode_landmask=None,
         )
 
+
+        if resampling:
+
+            logger.info("Resampling landmask image")
+
+            geotiff_path = img_pair_dir / f"landmask.tif"
+            output_path  = img_pair_dir / f"landmask_resampled_{resample_interval}_{resample_interval}.tif"
+
+            logger.debug(f"geotiff_path:      {geotiff_path}")
+            logger.debug(f"output_path:       {output_path}")
+            logger.debug(f"resample_interval: {resample_interval}")
+
+            normprod_utils.resample_geotiff(
+                geotiff_path,
+                output_path,
+                zoom_x=resample_interval,
+                zoom_y=resample_interval,
+                order=1,
+                overwrite=False,
+            )
+
+        # --------------------- #
+
         if erode_landmask is not None:
+
+            logger.info("Creating eroded landmask image")
+
+            geotiff_path = img_pair_dir / f"normprod_smovar_RGB.tif"
+            output_path  = img_pair_dir / f"landmask_eroded_{erode_landmask}.tif"
+
+            logger.debug(f"geotiff_path:            {geotiff_path}")
+            logger.debug(f"output_path:             {output_path}")
+            logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
 
             save_landmask_file_4_geotiff(
                 geotiff_path,
@@ -542,10 +596,28 @@ def fully_process_single_image_pair(
                erode_landmask=erode_landmask,
             )
 
+
+            if resampling:
+
+                logger.info("Resampling eroded landmask image")
+
+                geotiff_path = img_pair_dir / f"landmask_eroded_{erode_landmask}.tif"
+                output_path  = img_pair_dir / f"landmask_eroded_{erode_landmask}_resampled_{resample_interval}_{resample_interval}.tif"
+
+                logger.debug(f"geotiff_path:      {geotiff_path}")
+                logger.debug(f"output_path:       {output_path}")
+                logger.debug(f"resample_interval: {resample_interval}")
+
+                normprod_utils.resample_geotiff(
+                    geotiff_path,
+                    output_path,
+                    zoom_x=resample_interval,
+                    zoom_y=resample_interval,
+                    order=1,
+                    overwrite=False,
+                )
+
     # --------------------- #
-
-    logger.info("Resampling")
-
 
     return True
 
