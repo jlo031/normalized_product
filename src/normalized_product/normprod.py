@@ -592,7 +592,7 @@ def fully_process_single_image_pair(
             normprod_utils.save_landmask_file_4_geotiff(
                 geotiff_path,
                 landmask_shapefile_path,
-                output_path_2,
+                output_path,
                erode_landmask=erode_landmask,
             )
 
