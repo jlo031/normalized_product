@@ -738,6 +738,7 @@ def save_landmask_file_4_geotiff(
     landmask_shapefile_path,
     output_path,
     erode_landmask=None,
+    overwrite=False
 ):
     """
     Rasterize a shapefile landmask onto a geotiff raster and save as new geotiff
