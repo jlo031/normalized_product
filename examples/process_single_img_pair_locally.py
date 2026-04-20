@@ -121,10 +121,41 @@ normprod_utils.check_and_trim_image_pair(
 # Define window sizes to process
 window_list = [11,21,33]
 
+# Save intermediate normprod steps?
+save_intermediate_products = False
+
+# Define min/max values for normprod scaling to RGB image
+NP_min = -0.5
+NP_max = 1.0
+
+# Define path to landmask shapefile (set to None if no landmask needed/available)
+landmask_shapefile_path = "/g/data/jk72/jl0818/DATA/fast_ice_tests/coastline_shapefiles/add_coastline_high_res_polygon_v7_10/add_coastline_high_res_polygon_v7_10.shp"
+
+# Set number of pixels for landmask erosion (set to None if no erosion needed)
+erode_landmask = 100
+
+# Resample NP RGB image
+resample = True
+
+# Set resamping interval for NP RGB image and landmask
+resample_interval = 10
+
 normprod.fully_process_single_image_pair(
     IMG_PAIR_DIR,
     windows = window_list,
     save_intermediate_products = False,
+)
+
+normprod.fully_process_single_image_pair(
+    IMG_PAIR_DIR,
+    windows = window_list,
+    save_intermediate_products = save_intermediate_products,
+    NP_min = NP_min,
+    NP_max = NP_max,
+    landmask_shapefile_path = landmask_shapefile_path,
+    erode_landmask = erode_landmask,
+    resample = resample,
+    resample_interval = resample_interval,
 )
 
 # -------------------------------------------------------------------------- #
