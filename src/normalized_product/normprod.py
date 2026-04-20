@@ -548,7 +548,7 @@ def fully_process_single_image_pair(
         logger.debug(f"output_path:             {output_path}")
         logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
 
-        save_landmask_file_4_geotiff(
+        normprod_utils.save_landmask_file_4_geotiff(
             geotiff_path,
             landmask_shapefile_path,
             output_path,
@@ -589,7 +589,7 @@ def fully_process_single_image_pair(
             logger.debug(f"output_path:             {output_path}")
             logger.debug(f"landmask_shapefile_path: {landmask_shapefile_path}")
 
-            save_landmask_file_4_geotiff(
+            normprod_utils.save_landmask_file_4_geotiff(
                 geotiff_path,
                 landmask_shapefile_path,
                 output_path_2,
