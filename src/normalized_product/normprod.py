@@ -591,7 +591,7 @@ def fully_process_single_image_pair(
                 geotiff_path,
                 landmask_shapefile_path,
                 output_path,
-                erode_landmask=None,
+                erode_landmask=erode_landmask,
             )
 
 
