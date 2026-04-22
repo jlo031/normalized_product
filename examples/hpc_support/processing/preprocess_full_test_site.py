@@ -184,11 +184,16 @@ def preprocess_full_test_site():
                     IMG_PAIR_DIR,
                     windows = window_list,
                     save_intermediate_products = save_intermediate_products,
+                    NP_min = NP_min,
+                    NP_max = NP_max,
+                    landmask_shapefile_path = landmask_shapefile_path,
+                    erode_landmask = erode_landmask,
+                    resample = resample,
+                    resample_interval = resample_interval,
                 )
 
-
     # Write list with valid image pair folders to file for later processing
-    logger.info("Writing list of valid_image_pair_folders to: {valid_pairs_list}")
+    logger.info(f"Writing list of valid_image_pair_folders to: {valid_pairs_list}")
 
     with open(valid_pairs_list, 'w') as f:
         f.write('\n'.join(valid_image_pair_folders) + '\n')

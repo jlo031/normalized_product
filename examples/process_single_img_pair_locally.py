@@ -31,8 +31,8 @@ from normalized_product import normprod, normprod_utils
 # -------------------------------------------------------------------------- #
 
 # Define loglevel ["DEBUG" or "INFO"]
-loglevel = "DEBUG"
-##loglevel = "INFO"
+##loglevel = "DEBUG"
+loglevel = "INFO"
 
 logger.remove()
 logger.add(sys.stderr, level=loglevel)
@@ -139,12 +139,6 @@ resample = True
 
 # Set resamping interval for NP RGB image and landmask
 resample_interval = 10
-
-normprod.fully_process_single_image_pair(
-    IMG_PAIR_DIR,
-    windows = window_list,
-    save_intermediate_products = False,
-)
 
 normprod.fully_process_single_image_pair(
     IMG_PAIR_DIR,
