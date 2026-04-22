@@ -14,7 +14,7 @@ This library requires the **Geospatial Data Abstraction Layer ([GDAL])** library
 It is recommended the code in a dedicated virtual environment:
 
     # Create and activate a new environment
-    conda create -y --name NORMPROD -c conda-forge gdal numpy scipy loguru matplotlib pyyaml
+    conda create -y --name NORMPROD -c conda-forge gdal rasterio geopandas numpy scipy loguru matplotlib pyyaml
     conda activate NORMPROD
 
     # Install additional interactive tools
