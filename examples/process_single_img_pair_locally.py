@@ -44,7 +44,7 @@ logger.add(sys.stderr, level=loglevel)
 DATA_DIR = pathlib.Path("/g/data/jk72/jl0818/DATA/fast_ice_tests")
 
 # Define your current test site
-site = "Thwaites"
+site = "Prydz"
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -129,7 +129,7 @@ NP_min = -0.5
 NP_max = 1.0
 
 # Define path to landmask shapefile (set to None if no landmask needed/available)
-landmask_shapefile_path = "/g/data/jk72/jl0818/DATA/fast_ice_tests/coastline_shapefiles/add_coastline_high_res_polygon_v7_10/add_coastline_high_res_polygon_v7_10.shp"
+landmask_shapefile_path = "/g/data/jk72/jl0818/DATA/fast_ice_tests/coastline_shapefiles/add_coastline_high_res_polygon_v7_5/add_coastline_high_res_polygon_v7_5.shp"
 
 # Set number of pixels for landmask erosion (set to None if no erosion needed)
 erode_landmask = 100
