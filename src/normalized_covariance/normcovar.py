@@ -20,8 +20,10 @@ from osgeo import gdal
 
 import xarray as xr
 
+from odc.geo.xr import xr_reproject
+
 from normalized_covariance import normcovar_utils
-from normalized_covariance.xarray_utils import resample_xr
+from normalized_covariance.xarray_utils import zoomed_geobox
 
 # -------------------------------------------------------------------------- #
 # -------------------------------------------------------------------------- #
@@ -768,7 +770,7 @@ def fully_process_image_pair_xr(
     resample_rgb = True,
     zoom_x = 10,
     zoom_y = 10,
-    resample_method = "linear",
+    resample_method = "bilinear",
     landmask_shapefile_path = None,
     erode_landmask = None,
     apply_landmask_to_rgb = False,
@@ -793,9 +795,9 @@ def fully_process_image_pair_xr(
                  resolution (default=1)
     zoom_y     : resampling factor in y-direction for rgb; >1 coarsens
                  resolution (default=1)
-    resample_method : interpolation method for resampling rgb, mapped to a
-                 scipy.ndimage.zoom order ("nearest"->0, "linear"/"bilinear"->1,
-                 "cubic"->3). Default="linear".
+    resample_method : interpolation method for resampling rgb, one of 
+                [“average”, “bilinear”, “cubic”, “cubic_spline”, “lanczos”, 
+                “mode”, “gauss”, “max”, “min”, “med”, “q1”, “q3”]. Default="bilinear".
     landmask_shapefile_path : path to landmask shapefile. If given, a landmask
                  is rasterized onto img1's grid (default=None, no landmask).
     erode_landmask : erode landmask by number of pixels (default=None). Only
@@ -841,7 +843,6 @@ def fully_process_image_pair_xr(
 
     results = {"normcovar": normcovar_results}
 
-    order_map = {"nearest": 0, "linear": 1, "bilinear": 1, "cubic": 3}
     y_dim, x_dim = img1.dims[0], img1.dims[1]
 
     # False-colour RGB stack (requires exactly 3 windows)
@@ -873,14 +874,12 @@ def fully_process_image_pair_xr(
 
         if resample_rgb and (zoom_x != 1 or zoom_y != 1):
             logger.info(f"Resampling rgb by zoom_x={zoom_x}, zoom_y={zoom_y} (method={resample_method})...")
-            order = order_map.get(resample_method, 1)
-            results["rgb_resampled"] = resample_xr(
-                da=results["rgb"],
-                zoom_y=zoom_y,
-                zoom_x=zoom_x,
-                order=order,
-                clip_range=(0,255),
-                dtype=np.uint8
+            results["rgb_resampled"] = xr_reproject(
+                results["rgb"],
+                how=zoomed_geobox(results["rgb"], zoom_y, zoom_x),
+                resampling=resample_method,
+                dst_nodata=None,
+                dtype=np.uint8,
             )
     else:
         logger.warning(f"Expected 3 windows for RGB stack, got {len(windows)} — skipping RGB.")
@@ -896,14 +895,13 @@ def fully_process_image_pair_xr(
             rgb_landmasked = rgb_landmasked.where(results["landmask"] != 1, 0).astype(np.uint8)
             results["rgb_landmasked"] = rgb_landmasked
         if resample_rgb and (zoom_x != 1 or zoom_y != 1):
-            logger.info(f"Resampling landmask by zoom_x={zoom_x}, zoom_y={zoom_y} (method={resample_method})...")
-            results["landmask_resampled"] = resample_xr(
-                da=results["landmask"],
-                zoom_y=zoom_y,
-                zoom_x=zoom_x,
-                order=0, # use nearest neighbour for binary landmask
-                clip_range=None,
-                dtype=np.uint8
+            logger.info(f"Resampling landmask by zoom_x={zoom_x}, zoom_y={zoom_y} (method=nearest)...")
+            results["landmask_resampled"] = xr_reproject(
+                results["landmask"],
+                how=zoomed_geobox(results["landmask"], zoom_y, zoom_x),
+                resampling="nearest",  # nearest neighbour for binary landmask
+                dst_nodata=None,
+                dtype=np.uint8,
             )
 
             if apply_landmask_to_rgb and "rgb_resampled" in results:
